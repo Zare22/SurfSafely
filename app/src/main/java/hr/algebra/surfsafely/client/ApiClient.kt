@@ -1,12 +1,11 @@
 package hr.algebra.surfsafely.client
 
-import android.content.Context
-import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import hr.algebra.surfsafely.application.SurfSafelyApplication.Companion.getApplication
 import hr.algebra.surfsafely.manager.TokenManager
 import hr.algebra.surfsafely.service.ApiService
-import okhttp3.Interceptor
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -18,35 +17,22 @@ object ApiClient {
         .addLast(KotlinJsonAdapterFactory())
         .build()
 
-    fun getAuthClient(): ApiService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
+    private val client = OkHttpClient.Builder().apply {
+        addInterceptor { chain ->
+            val token = runBlocking { TokenManager.getToken(getApplication() ?: throw Exception("Application context is null")) }
+            val newRequest = chain.request().newBuilder()
 
-        return retrofit.create(ApiService::class.java)
-    }
+            if (token != null) newRequest.addHeader("Authorization", "Bearer $token")
 
-    fun getClient(): ApiService {
-
-        val customInterceptor = Interceptor { chain ->
-            val originalRequest = chain.request()
-            val newRequestBuilder = originalRequest.newBuilder()
-            newRequestBuilder.addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2siLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2ODM0MDEyMTQsImV4cCI6MTY4MzQ4NzYxNH0.GTqcdXW2QRC7dR9zGWbj5Rhdx-E9xPcpHk-c9eMg2YU")
-            val newRequest = newRequestBuilder.build()
-            chain.proceed(newRequest)
+            chain.proceed(newRequest.build())
         }
+    }.build()
 
-        val httpClient = OkHttpClient.Builder()
-            .addInterceptor(customInterceptor)
-            .build()
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .build()
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(httpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-
-        return retrofit.create(ApiService::class.java)
-    }
+    fun getService(): ApiService = retrofit.create(ApiService::class.java)
 }
