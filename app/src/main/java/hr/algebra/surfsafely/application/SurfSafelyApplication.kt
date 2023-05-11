@@ -6,11 +6,10 @@ import android.os.HandlerThread
 import android.util.Log
 import com.auth0.jwt.JWT
 import hr.algebra.surfsafely.manager.TokenManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import hr.algebra.surfsafely.module.networkModule
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
@@ -19,26 +18,29 @@ class SurfSafelyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         setApplication(this)
-
-        val handlerThread = HandlerThread("TokenCheckThread")
-        handlerThread.start()
-        val looper = handlerThread.looper
-        val handler = Handler(looper)
-
-
-        val tokenCheckRunnable = object : Runnable {
-            override fun run() {
-                val token = runBlocking { TokenManager.getToken(this@SurfSafelyApplication) }
-                Log.d("vrijeme", JWT.decode(token!!).expiresAt.toString())
-                if (token.isNullOrEmpty() && isTokenExpired(token!!)) {
-                    Log.d("prosaovoz", token)
-                }
-
-                handler.postDelayed(this, TimeUnit.MINUTES.toMillis(1))
-            }
+        startKoin {
+            androidContext(this@SurfSafelyApplication)
+            modules(networkModule)
         }
 
-        handler.postDelayed(tokenCheckRunnable, TimeUnit.MINUTES.toMillis(1))
+//        val handlerThread = HandlerThread("TokenCheckThread")
+//        handlerThread.start()
+//        val looper = handlerThread.looper
+//        val handler = Handler(looper)
+//
+//
+//        val tokenCheckRunnable = object : Runnable {
+//            override fun run() {
+//                val token = runBlocking { TokenManager.getToken(this@SurfSafelyApplication) }
+//                Log.d("vrijeme", JWT.decode(token!!).expiresAt.toString())
+//                if (token.isEmpty() || isTokenExpired(token)) {
+//                    Log.d("prosaovoz", token)
+//                }
+//                handler.postDelayed(this, TimeUnit.MINUTES.toMillis(1))
+//            }
+//        }
+//
+//        handler.postDelayed(tokenCheckRunnable, TimeUnit.MINUTES.toMillis(1))
     }
 
     companion object {

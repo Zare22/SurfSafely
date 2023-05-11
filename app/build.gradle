@@ -35,6 +35,9 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -62,4 +65,8 @@ dependencies {
 
     //Jjwt
     implementation 'com.auth0:java-jwt:3.18.2'
+
+    //Koin
+    implementation 'io.insert-koin:koin-android:3.4.0'
+
 }

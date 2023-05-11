@@ -12,7 +12,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ApiClient {
 
-    private const val BASE_URL = "http://192.168.5.15:8080/api/"
+    private const val BASE_URL = "http://10.0.2.2:8080/api/"
     private val moshi = Moshi.Builder()
         .addLast(KotlinJsonAdapterFactory())
         .build()

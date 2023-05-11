@@ -9,5 +9,5 @@ data class UserDto(
     val username: String,
     val password: String,
     val email: String,
-    val roleId: Long
+    val roleId: Long = 2
 )

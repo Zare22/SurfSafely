@@ -9,4 +9,20 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="logo_content_description">Surf safely logo</string>
+    <string name="username_hint">Username</string>
+    <string name="transition_button">Logging in</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="create_account">Create account</string>
+    <string name="username">Username</string>
+
+
 </resources>
