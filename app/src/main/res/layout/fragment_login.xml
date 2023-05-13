@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
         android:hint="@string/username_hint"
-        app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo_image"
@@ -34,12 +33,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username_input"
+            style="@style/EditTextColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="email"
             android:inputType="textEmailAddress"
-            android:padding="@dimen/padding_medium"
-            android:textColor="@color/white" />
+            android:padding="@dimen/padding_medium" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,12 +57,12 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_input"
+            style="@style/EditTextColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="password"
             android:inputType="textPassword"
-            android:padding="@dimen/padding_medium"
-            android:textColor="@color/white" />
+            android:padding="@dimen/padding_medium" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

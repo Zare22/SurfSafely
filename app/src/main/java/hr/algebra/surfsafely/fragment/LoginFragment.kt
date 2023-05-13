@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import hr.algebra.surfsafely.R
+import hr.algebra.surfsafely.activity.MainActivity
 import hr.algebra.surfsafely.databinding.FragmentLoginBinding
 import hr.algebra.surfsafely.dto.login.LoginRequest
 import hr.algebra.surfsafely.framework.replaceFragment
-import hr.algebra.surfsafely.framework.showToast
+import hr.algebra.surfsafely.framework.startActivityAndClearStack
+import hr.algebra.surfsafely.manager.TokenManager
 import hr.algebra.surfsafely.service.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,19 +40,19 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
 
             lifecycleScope.launch {
-
                 val loginRequest =
                     LoginRequest(binding.usernameInput.text.toString(), binding.passwordInput.text.toString())
                 val response = withContext(Dispatchers.IO) {
                     apiService.loginUser(loginRequest).execute()
                 }
-                withContext(Dispatchers.Main) {
-                    if (response.body() != null) activity?.showToast(response.body()!!.data!!.token)
+                val token = response.body()?.data?.token
+                withContext(Dispatchers.IO) {
+                    if (token != null) {
+                        TokenManager.setToken((activity as AppCompatActivity).applicationContext, token)
+                        (activity as AppCompatActivity).applicationContext.startActivityAndClearStack<MainActivity>()
+                    }
                 }
             }
-
-
         }
-
     }
 }

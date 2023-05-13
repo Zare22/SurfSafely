@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
         android:hint="@string/first_name"
-        app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +22,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:padding="@dimen/padding_medium"
-            android:textColor="@color/white" />
+            style="@style/EditTextColor"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -34,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
         android:hint="@string/last_name"
-        app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/first_name_input_layout"
@@ -46,7 +44,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:padding="@dimen/padding_medium"
-            android:textColor="@color/white" />
+            style="@style/EditTextColor"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +55,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
         android:hint="@string/username"
-        app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/last_name_input_layout"
@@ -69,7 +66,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:padding="@dimen/padding_medium"
-            android:textColor="@color/white" />
+            style="@style/EditTextColor"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +77,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
         android:hint="@string/password"
-        app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/username_input_layout"
@@ -92,7 +88,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:padding="@dimen/padding_medium"
-            android:textColor="@color/white" />
+            style="@style/EditTextColor"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,7 +99,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
         android:hint="@string/confirm_password"
-        app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/password_input_layout"
@@ -115,7 +110,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:padding="@dimen/padding_medium"
-            android:textColor="@color/white" />
+            style="@style/EditTextColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +121,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
         android:hint="@string/email"
-        app:hintTextColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/confirm_password_input_layout"
@@ -138,7 +132,7 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:padding="@dimen/padding_medium"
-            android:textColor="@color/white" />
+            style="@style/EditTextColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

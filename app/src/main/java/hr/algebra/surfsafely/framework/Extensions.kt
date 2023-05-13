@@ -6,9 +6,15 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.auth0.jwt.JWT
+import java.util.Date
+inline fun <reified T : Activity> Context.startActivityAndClearStack() {
+    val intent = Intent(this, T::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+    }
+    startActivity(intent)
+}
 
-inline fun <reified T : Activity> Context.startActivity() =
-    startActivity(Intent(this, T::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
 fun Activity.showToast(message: String) {
     runOnUiThread {
         Toast.makeText(
@@ -26,4 +32,11 @@ fun FragmentActivity.replaceFragment(containerId: Int, fragment: Fragment, addTo
             if (addToBackStack) addToBackStack(null)
         }
         .commit()
+}
+
+
+fun isTokenExpired(token: String) : Boolean {
+    val decodedJWT = JWT.decode(token)
+    val expiration = decodedJWT.expiresAt
+    return expiration?.before(Date()) ?: true
 }

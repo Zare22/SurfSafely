@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.ScanFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/url_input_layout"
+        style="@style/SurfSafelyEditTextStyle"
+        android:layout_marginTop="@dimen/margin_big"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_urls_to_scan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnScanUrl"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/url_input"
+            style="@style/EditTextColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_medium" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginTop="@dimen/margin_big"
+        android:id="@+id/btnScanUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_url"
+        android:transitionName="@string/scanning"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintStart_toEndOf="@id/url_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/selected_file_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Placeholder"
+        android:textColor="@color/yellow"
+        app:layout_constraintEnd_toStartOf="@+id/btnSelectFile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/url_input_layout"
+        app:layout_constraintBottom_toTopOf="@id/btnScanFile"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSelectFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_file"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnScanUrl" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnScanFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_file"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectFile" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/results_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your results will appear here."
+        android:layout_marginTop="16dp"
+        android:textColor="@color/yellow"
+        app:layout_constraintTop_toBottomOf="@id/btnScanFile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

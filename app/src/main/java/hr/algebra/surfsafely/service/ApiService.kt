@@ -14,8 +14,10 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import java.io.File
 
 interface ApiService {
 
@@ -28,6 +30,7 @@ interface ApiService {
     @POST("checkUrl")
     fun checkUrl(@Body request: CheckUrlRequest): Call<ApiResponse<CheckUrlResponse, String>>
 
+    @Multipart
     @POST("checkFile")
     fun checkFile(@Part file: MultipartBody.Part): Call<ApiResponse<CheckFileResponse, String>>
 

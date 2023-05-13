@@ -6,4 +6,6 @@ import com.squareup.moshi.JsonClass
 data class ApiResponse<T, E>(
     val data: T?,
     val error: E?
-)
+) {
+    fun hasData() = data != null
+}

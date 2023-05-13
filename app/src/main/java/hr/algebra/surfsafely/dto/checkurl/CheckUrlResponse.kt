@@ -4,7 +4,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CheckUrlResponse(
-    val matches: List<Match>
+    val matches: List<Match>?
 )
 
 @JsonClass(generateAdapter = true)
