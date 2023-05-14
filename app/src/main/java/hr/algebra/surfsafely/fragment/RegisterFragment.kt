@@ -8,32 +8,29 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import hr.algebra.surfsafely.databinding.FragmentRegisterBinding
-import hr.algebra.surfsafely.dto.UserDto
 import hr.algebra.surfsafely.framework.showToast
-import hr.algebra.surfsafely.module.registerModule
+import hr.algebra.surfsafely.module.registerUserModule
 import hr.algebra.surfsafely.service.ApiService
-import hr.algebra.surfsafely.viewmodel.UserViewModel
+import hr.algebra.surfsafely.viewmodel.RegisterUserViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.context.loadKoinModules
 
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val apiService by inject<ApiService>()
-    private val userDtoViewModel by viewModel<UserViewModel>()
+    private val userDtoViewModel by viewModel<RegisterUserViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
-        loadKoinModules(registerModule)
+        loadKoinModules(registerUserModule)
         setButtonOnClickListener()
         observeInputFields()
         return binding.root

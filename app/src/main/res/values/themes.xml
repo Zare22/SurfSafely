@@ -16,15 +16,22 @@
         <item name="android:statusBarColor">@color/light_blue</item>
 
         <item name="android:textSize">16sp</item>
-        <!-- Change the default button style. -->
         <item name="materialButtonStyle">@style/SurfSafelyButtonStyle</item>
 
         <item name="fontFamily">@font/open_sans</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">?attr/colorAccent</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
+
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
 
     </style>
 
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:overlapAnchor">false</item>
+    </style>
+
     <style name="NoTitle" parent="Theme.SurfSafely">
-        <!-- Hide title bar -->
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>

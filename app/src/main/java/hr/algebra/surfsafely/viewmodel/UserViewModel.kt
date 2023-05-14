@@ -3,14 +3,14 @@ package hr.algebra.surfsafely.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import hr.algebra.surfsafely.dto.UserDto
+import hr.algebra.surfsafely.dto.user.FullUserDto
+import hr.algebra.surfsafely.dto.user.RegisterUserDto
 
 class UserViewModel : ViewModel() {
-    private val _user = MutableLiveData<UserDto>()
-    val user: LiveData<UserDto> = _user
+    private val _user = MutableLiveData<FullUserDto>()
+    val user: LiveData<FullUserDto> = _user
 
-    fun updateUser(firstName: String, lastName: String, username: String, password: String, email: String) {
-        val updatedUser = UserDto(firstName, lastName, username, password, email)
-        _user.value = updatedUser
+    fun setUser(user: FullUserDto) {
+        _user.value = user
     }
 }
