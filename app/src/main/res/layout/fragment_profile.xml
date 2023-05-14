@@ -10,7 +10,7 @@
         android:id="@+id/avatar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/circle_background"
+        android:background="@drawable/avatar_circle_background"
         android:elevation="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@id/personal_info_container"
@@ -28,7 +28,7 @@
         android:layout_margin="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@id/edit_personal_info_button"
+        app:layout_constraintBottom_toTopOf="@id/btnEditPersonalInfo"
         app:layout_constraintTop_toBottomOf="@id/avatar">
 
         <LinearLayout
@@ -59,26 +59,27 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/edit_personal_info_button"
+        android:id="@+id/btnEditPersonalInfo"
         style="@style/SurfSafelyButtonStyle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/edit_personal_info"
-        app:layout_constraintBottom_toTopOf="@id/delete_account_button"
+        app:layout_constraintBottom_toTopOf="@id/btnDeleteAccount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.7"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/delete_account_button"
+        android:id="@+id/btnDeleteAccount"
         style="@style/SurfSafelyButtonStyle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/delete_account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"
+        app:layout_constraintWidth_percent="0.7"
         android:backgroundTint="@color/red"
         android:textStyle="bold"/>
 

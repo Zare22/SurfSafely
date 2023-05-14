@@ -31,7 +31,7 @@ class RegisterFragment : Fragment() {
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         loadKoinModules(registerUserModule)
-        setButtonOnClickListener()
+        initButtonClickListeners()
         observeInputFields()
         return binding.root
     }
@@ -58,7 +58,7 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun setButtonOnClickListener() {
+    private fun initButtonClickListeners() {
         binding.btnRegister.setOnClickListener {
 
             lifecycleScope.launch {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import hr.algebra.surfsafely.R
 
 class HomeFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

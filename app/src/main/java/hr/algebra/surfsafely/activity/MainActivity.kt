@@ -9,18 +9,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.ActivityMainBinding
-import hr.algebra.surfsafely.dto.user.FullUserDto
 import hr.algebra.surfsafely.framework.startActivityAndClearStack
 import hr.algebra.surfsafely.manager.TokenManager
 import hr.algebra.surfsafely.service.ApiService
-import hr.algebra.surfsafely.viewmodel.RegisterUserViewModel
 import hr.algebra.surfsafely.viewmodel.UserViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,8 +44,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_logout -> {
                 lifecycleScope.launch {
-                    val token = TokenManager.getToken(this@MainActivity)
-                    apiService.logout(token!!)
+                    apiService.logout()
                     TokenManager.clearToken(this@MainActivity)
                     this@MainActivity.startActivityAndClearStack<AuthenticationActivity>()
                 }
