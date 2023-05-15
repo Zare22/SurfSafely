@@ -1,4 +1,4 @@
-package hr.algebra.surfsafely.dto.dialog
+package hr.algebra.surfsafely.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

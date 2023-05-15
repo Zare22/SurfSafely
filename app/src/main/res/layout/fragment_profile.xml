@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.4"/>
+        app:layout_constraintWidth_percent="0.4" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/personal_info_container"
@@ -28,19 +28,19 @@
         android:layout_margin="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@id/btnEditPersonalInfo"
+        app:layout_constraintBottom_toTopOf="@id/btnChangePassword"
         app:layout_constraintTop_toBottomOf="@id/avatar">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:padding="16dp">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/full_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/btnEditPersonalInfo"
                 android:text="John Doe"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -49,39 +49,51 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/full_name"
+                android:layout_marginTop="8dp"
+                android:layout_toStartOf="@id/btnEditPersonalInfo"
                 android:text="johndoe@example.com"
                 android:textSize="16sp" />
 
-        </LinearLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnEditPersonalInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="8dp"
+                android:contentDescription="@string/edit_personal_info"
+                android:src="@drawable/round_edit_24" />
+
+        </RelativeLayout>
+
 
     </com.google.android.material.card.MaterialCardView>
 
-
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnEditPersonalInfo"
+        android:id="@+id/btnChangePassword"
         style="@style/SurfSafelyButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/edit_personal_info"
+        android:text="@string/change_password"
         app:layout_constraintBottom_toTopOf="@id/btnDeleteAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.7"/>
+        app:layout_constraintWidth_percent="0.7" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDeleteAccount"
         style="@style/SurfSafelyButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
         android:text="@string/delete_account"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.7"
-        android:backgroundTint="@color/red"
-        android:textStyle="bold"/>
+        app:layout_constraintWidth_percent="0.7" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

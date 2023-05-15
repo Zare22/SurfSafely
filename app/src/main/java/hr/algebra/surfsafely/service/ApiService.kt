@@ -37,7 +37,7 @@ interface ApiService {
     @GET("logout")
     fun logout(): Call<ApiResponse<String, String>>
 
-    @POST("change-password")
+    @POST("auth/change-password")
     fun changePassword(@Body request: ChangePasswordRequest): Call<ApiResponse<String, String>>
 
     @POST("current-user/update-personal-information")
