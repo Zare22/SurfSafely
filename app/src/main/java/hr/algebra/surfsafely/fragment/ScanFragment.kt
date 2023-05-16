@@ -79,7 +79,7 @@ class ScanFragment : Fragment() {
 
         binding.btnScanFile.setOnClickListener {
 
-            val file = File(selectedFilePath)
+            val file = File(selectedFilePath!!)
             val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
             val filePart: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
 

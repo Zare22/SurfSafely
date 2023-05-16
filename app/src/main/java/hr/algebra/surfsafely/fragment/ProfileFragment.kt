@@ -8,15 +8,12 @@ import androidx.fragment.app.Fragment
 import hr.algebra.surfsafely.databinding.FragmentProfileBinding
 import hr.algebra.surfsafely.dialog.ChangePasswordDialog
 import hr.algebra.surfsafely.dialog.EditPersonalInformationDialog
-import hr.algebra.surfsafely.service.ApiService
 import hr.algebra.surfsafely.viewmodel.UserViewModel
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private val apiService by inject<ApiService>()
     private val userViewModel by activityViewModel<UserViewModel>()
 
     override fun onCreateView(
@@ -24,9 +21,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        setUserInfo()
+        userViewModel.user.observe(viewLifecycleOwner) { setUserInfo() }
         initButtonClickListeners()
-
         return binding.root
     }
 

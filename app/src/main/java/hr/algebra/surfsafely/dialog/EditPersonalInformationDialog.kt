@@ -20,7 +20,6 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 class EditPersonalInformationDialog : DialogFragment() {
 
     private lateinit var binding: FragmentEditPersonalInformationDialogBinding
-    private val apiService by inject<ApiService>()
     private val userViewModel by activityViewModel<UserViewModel>()
 
     override fun onCreateView(
@@ -35,21 +34,16 @@ class EditPersonalInformationDialog : DialogFragment() {
 
     private fun initButtonClickListeners() {
         binding.btnConfirm.setOnClickListener {
-            lifecycleScope.launch {
-                val userUpdateInformationDto = UserUpdateInformationDto(
-                    binding.emailInput.text.toString(),
-                    binding.firstNameInput.text.toString(),
-                    binding.lastNameInput.text.toString()
-                )
-                withContext(Dispatchers.IO) {
-                    apiService.updateUserPersonalInformation(userUpdateInformationDto).execute()
-                }
-                dismiss()
-            }
-        }
-        binding.btnCancel.setOnClickListener {
+
+            val userUpdateInformationDto = UserUpdateInformationDto(
+                binding.emailInput.text.toString(),
+                binding.firstNameInput.text.toString(),
+                binding.lastNameInput.text.toString()
+            )
+            userViewModel.updateUserInformation(userUpdateInformationDto)
             dismiss()
         }
+        binding.btnCancel.setOnClickListener { dismiss() }
     }
 
     private fun initFields() {
@@ -58,12 +52,14 @@ class EditPersonalInformationDialog : DialogFragment() {
         binding.emailInput.setText(userViewModel.user.value?.email)
     }
 
-
     override fun onStart() {
         super.onStart()
         dialog?.let {
             val window = it.window
-            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             window?.setBackgroundDrawableResource(R.drawable.dialog_background)
         }
     }
