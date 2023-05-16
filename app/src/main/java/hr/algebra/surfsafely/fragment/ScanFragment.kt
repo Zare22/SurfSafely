@@ -1,17 +1,12 @@
 package hr.algebra.surfsafely.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import hr.algebra.surfsafely.R
-import hr.algebra.surfsafely.databinding.FragmentLoginBinding
 import hr.algebra.surfsafely.databinding.FragmentScanBinding
 import hr.algebra.surfsafely.dto.checkurl.CheckUrlRequest
 import hr.algebra.surfsafely.dto.checkurl.ThreatEntry

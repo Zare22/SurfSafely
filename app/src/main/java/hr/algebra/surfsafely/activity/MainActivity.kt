@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.ActivityMainBinding
+import hr.algebra.surfsafely.databinding.FragmentProfileBinding
 import hr.algebra.surfsafely.framework.startActivityAndClearStack
 import hr.algebra.surfsafely.manager.TokenManager
 import hr.algebra.surfsafely.viewmodel.UserViewModel
@@ -23,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initActionBar()
         initUser()
         initNavigation()

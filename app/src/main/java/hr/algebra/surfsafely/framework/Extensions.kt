@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.auth0.jwt.JWT
 import java.util.Date
+
 inline fun <reified T : Activity> Context.startActivityAndClearStack() {
     val intent = Intent(this, T::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

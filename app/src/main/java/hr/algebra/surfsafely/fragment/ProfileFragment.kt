@@ -21,7 +21,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-        userViewModel.user.observe(viewLifecycleOwner) { setUserInfo() }
+        binding.userViewModel = userViewModel
         initButtonClickListeners()
         return binding.root
     }
@@ -37,8 +37,4 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setUserInfo() {
-        binding.fullName.text = userViewModel.user.value?.firstName.plus(" ").plus(userViewModel.user.value?.lastName)
-        binding.email.text = userViewModel.user.value?.email
-    }
 }

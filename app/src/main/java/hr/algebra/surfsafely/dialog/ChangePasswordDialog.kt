@@ -10,15 +10,17 @@ import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.FragmentChangePasswordDialogBinding
 import hr.algebra.surfsafely.dto.password.ChangePasswordRequest
 import hr.algebra.surfsafely.service.ApiService
+import hr.algebra.surfsafely.viewmodel.UserViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ChangePasswordDialog : DialogFragment() {
 
     private lateinit var binding: FragmentChangePasswordDialogBinding
-    private val apiService by inject<ApiService>()
+    private val userViewModel by activityViewModel<UserViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +33,12 @@ class ChangePasswordDialog : DialogFragment() {
 
     private fun initButtonClickListeners() {
         binding.btnConfirm.setOnClickListener {
-            lifecycleScope.launch {
+            if (binding.newPasswordInput.text == binding.newPasswordRepeatInput.text) {
                 val changePasswordRequest = ChangePasswordRequest(
                     binding.oldPasswordInput.text.toString(),
                     binding.newPasswordInput.text.toString()
                 )
-                withContext(Dispatchers.IO) {
-                    apiService.changePassword(changePasswordRequest).execute()
-                }
+                userViewModel.changePassword(changePasswordRequest)
                 dismiss()
             }
         }
@@ -52,7 +52,10 @@ class ChangePasswordDialog : DialogFragment() {
         super.onStart()
         dialog?.let {
             val window = it.window
-            window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             window?.setBackgroundDrawableResource(R.drawable.dialog_background)
         }
     }

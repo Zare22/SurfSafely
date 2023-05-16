@@ -1,5 +1,6 @@
 package hr.algebra.surfsafely.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UserViewModel(private val apiService: ApiService) : ViewModel() {
+
+    val userObserve = ObservableField<FullUserDto>()
+
     private val _user = MutableLiveData<FullUserDto>()
     val user: LiveData<FullUserDto> = _user
 
@@ -21,6 +25,7 @@ class UserViewModel(private val apiService: ApiService) : ViewModel() {
             withContext(Dispatchers.IO) {
                 val response = apiService.getCurrentUser().execute()
                 _user.postValue(response.body()?.data!!)
+                userObserve.set(response.body()?.data!!)
             }
         }
     }
