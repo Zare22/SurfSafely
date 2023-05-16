@@ -3,7 +3,7 @@ package hr.algebra.surfsafely.dto.user
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class RegisterUserDto(
+data class UserDto(
     val firstName: String,
     val lastName: String,
     val username: String,

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.dto.password.ChangePasswordRequest
-import hr.algebra.surfsafely.dto.user.FullUserDto
+import hr.algebra.surfsafely.dto.user.UserDto
 import hr.algebra.surfsafely.dto.user.UserUpdateInformationDto
 import hr.algebra.surfsafely.service.ApiService
 import kotlinx.coroutines.Dispatchers
@@ -15,10 +15,10 @@ import kotlinx.coroutines.withContext
 
 class UserViewModel(private val apiService: ApiService) : ViewModel() {
 
-    val userObserve = ObservableField<FullUserDto>()
+    val userObserve = ObservableField<UserDto>()
 
-    private val _user = MutableLiveData<FullUserDto>()
-    val user: LiveData<FullUserDto> = _user
+    private val _user = MutableLiveData<UserDto>()
+    val user: LiveData<UserDto> = _user
 
     fun getUser() {
         viewModelScope.launch {
@@ -51,6 +51,14 @@ class UserViewModel(private val apiService: ApiService) : ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 apiService.logout().execute()
+            }
+        }
+    }
+
+    fun delete() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                apiService.deleteAccount().execute()
             }
         }
     }

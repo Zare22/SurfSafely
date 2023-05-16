@@ -44,6 +44,7 @@
     <string name="change_password">Change password</string>
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
+    <string name="if_you_want_to_delete_your_account_please_enter_your_username_below">If you want to delete your account please enter your username below</string>
 
 
 </resources>

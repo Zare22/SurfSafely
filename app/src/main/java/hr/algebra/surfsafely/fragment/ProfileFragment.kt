@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import hr.algebra.surfsafely.databinding.FragmentProfileBinding
 import hr.algebra.surfsafely.dialog.ChangePasswordDialog
+import hr.algebra.surfsafely.dialog.DeleteAccountDialog
 import hr.algebra.surfsafely.dialog.EditPersonalInformationDialog
 import hr.algebra.surfsafely.viewmodel.UserViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -34,6 +35,10 @@ class ProfileFragment : Fragment() {
         binding.btnChangePassword.setOnClickListener {
             val dialogFragment = ChangePasswordDialog()
             dialogFragment.show(parentFragmentManager, "changePasswordDialog")
+        }
+        binding.btnDeleteAccount.setOnClickListener {
+            val dialogFragment = DeleteAccountDialog()
+            dialogFragment.show(parentFragmentManager, "deleteAccountDialog")
         }
     }
 
