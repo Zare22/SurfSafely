@@ -34,14 +34,26 @@ class DeleteAccountDialog : DialogFragment() {
         binding.btnConfirm.setOnClickListener {
             if (binding.usernameInput.text.toString() == userViewModel.user.value?.username) {
                 userViewModel.logout()
-                runBlocking { TokenManager.clearToken(this@DeleteAccountDialog.requireContext().applicationContext) }
                 userViewModel.delete()
+                runBlocking { TokenManager.clearToken(this@DeleteAccountDialog.requireContext().applicationContext) }
                 dismiss()
                 requireActivity().startActivityAndClearStack<AuthenticationActivity>()
             }
         }
         binding.btnCancel.setOnClickListener {
             dismiss()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.let {
+            val window = it.window
+            window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            window?.setBackgroundDrawableResource(R.drawable.dialog_background)
         }
     }
 }
