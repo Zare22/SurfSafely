@@ -1,6 +1,7 @@
 package hr.algebra.surfsafely.application
 
 import android.app.Application
+import hr.algebra.surfsafely.module.quizModule
 import hr.algebra.surfsafely.module.serviceModule
 import hr.algebra.surfsafely.module.userModule
 import org.koin.android.ext.koin.androidContext
@@ -14,7 +15,7 @@ class SurfSafelyApplication : Application() {
         setApplication(this)
         startKoin {
             androidContext(this@SurfSafelyApplication)
-            modules(serviceModule, userModule)
+            modules(serviceModule, userModule, quizModule)
         }
     }
 

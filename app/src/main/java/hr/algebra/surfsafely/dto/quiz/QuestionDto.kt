@@ -9,3 +9,4 @@ data class QuestionDto(
     val answerDtoList: List<AnswerDto>,
     val quizId: Long
 )
+
