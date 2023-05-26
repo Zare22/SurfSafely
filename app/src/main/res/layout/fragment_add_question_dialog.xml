@@ -1,76 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".dialog.ChangePasswordDialog">
+    tools:context=".dialog.AddQuestionDialog">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/old_password_input_layout"
+        android:id="@+id/question_text_input_layout"
         style="@style/SurfSafelyEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
-        android:hint="@string/old_password"
+        android:hint="@string/question_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.8">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/old_password_input"
+            android:id="@+id/question_text_input"
             style="@style/EditTextColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="textPersonName"
             android:padding="@dimen/padding_medium" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/new_password_input_layout"
-        style="@style/SurfSafelyEditTextStyle"
+    <ScrollView
+        android:id="@+id/answer_scroll_view"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:layout_constraintBottom_toTopOf="@id/btnAddAnswer"
+        app:layout_constraintDimensionRatio="H,60:40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/question_text_input_layout">
+
+        <LinearLayout
+            android:id="@+id/answer_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddAnswer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_big"
-        android:hint="@string/new_password"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/add_answer"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/old_password_input_layout"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintTop_toBottomOf="@id/answer_scroll_view"
+        app:layout_constraintWidth_percent="0.4" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/new_password_input"
-            style="@style/EditTextColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:padding="@dimen/padding_medium" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/new_password_repeat_input_layout"
-        style="@style/SurfSafelyEditTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        android:hint="@string/confirm_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/new_password_input_layout"
-        app:layout_constraintWidth_percent="0.8">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/new_password_repeat_input"
-            style="@style/EditTextColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:padding="@dimen/padding_medium" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancel"
@@ -84,7 +73,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/btnConfirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/new_password_repeat_input_layout"
+        app:layout_constraintTop_toBottomOf="@id/btnAddAnswer"
         app:layout_constraintWidth_percent="0.3" />
 
     <com.google.android.material.button.MaterialButton
@@ -98,7 +87,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnCancel"
-        app:layout_constraintTop_toBottomOf="@id/new_password_repeat_input_layout"
+        app:layout_constraintTop_toBottomOf="@id/btnAddAnswer"
         app:layout_constraintWidth_percent="0.3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

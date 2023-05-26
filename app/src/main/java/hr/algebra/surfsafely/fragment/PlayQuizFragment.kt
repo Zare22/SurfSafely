@@ -8,14 +8,13 @@ import androidx.fragment.app.Fragment
 import hr.algebra.surfsafely.adapter.QuestionPagerAdapter
 import hr.algebra.surfsafely.databinding.FragmentPlayQuizBinding
 import hr.algebra.surfsafely.interfaces.AnswerSelectionListener
-import hr.algebra.surfsafely.viewmodel.QuizViewModel
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import hr.algebra.surfsafely.viewmodel.PlayQuizViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PlayQuizFragment : Fragment(), AnswerSelectionListener {
+class PlayQuizFragment(private val quizId: Long) : Fragment(), AnswerSelectionListener {
 
     private lateinit var binding: FragmentPlayQuizBinding
-    private val quizViewModel by activityViewModel<QuizViewModel>()
+    private val playQuizViewModel by viewModel<PlayQuizViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,23 +22,28 @@ class PlayQuizFragment : Fragment(), AnswerSelectionListener {
     ): View {
         binding = FragmentPlayQuizBinding.inflate(inflater, container, false)
 
-        binding.btnConfirm.setOnClickListener {
-            quizViewModel.solveQuiz()
-        }
+        playQuizViewModel.getQuiz(quizId)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            val adapter = QuestionPagerAdapter(requireContext(), quizViewModel.quiz.value?.questionDtoList!!, this)
-            binding.viewPagerQuestions.adapter = adapter
+        playQuizViewModel.quiz.observe(viewLifecycleOwner) { quiz ->
+            quiz?.let {
+                val adapter = QuestionPagerAdapter(requireContext(), quiz.questionDtoList, this)
+                binding.viewPagerQuestions.adapter = adapter
+            }
+        }
+//            val adapter = QuestionPagerAdapter(requireContext(), playQuizViewModel.quiz.value?.questionDtoList!!, this)
+//            binding.viewPagerQuestions.adapter = adapter
     }
 
-    override fun onAnswerSelected(answerId: Long) {
-        quizViewModel.addSelectedAnswer(answerId)
+    override fun onAnswerSelected(answerId: Long?) {
+        playQuizViewModel.addSelectedAnswer(answerId)
     }
 
-    override fun onAnswerDeselected(answerId: Long) {
-        quizViewModel.removeSelectedAnswer(answerId)
+    override fun onAnswerDeselected(answerId: Long?) {
+        playQuizViewModel.removeSelectedAnswer(answerId)
     }
 }

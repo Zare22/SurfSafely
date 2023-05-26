@@ -12,21 +12,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class QuizViewModel(private val apiService: ApiService) : ViewModel() {
+class PlayQuizViewModel(private val apiService: ApiService) : ViewModel() {
 
     private val _quiz = MutableLiveData<QuizDto>()
     val quiz: LiveData<QuizDto> = _quiz
 
-    private val _answers = MutableLiveData<List<Long>>(emptyList())
-    val answers: LiveData<List<Long>> = _answers
+    private val _answers = MutableLiveData<List<Long?>>(emptyList())
+    private val answers: LiveData<List<Long?>> = _answers
 
-    init {
-        getQuiz()
-    }
-    fun getQuiz() {
+    fun getQuiz(id: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val response = apiService.getQuiz(2).execute()
+                val response = apiService.getQuiz(id).execute()
                 _quiz.postValue(response.body()?.data!!)
             }
         }
@@ -41,16 +38,15 @@ class QuizViewModel(private val apiService: ApiService) : ViewModel() {
         }
     }
 
-    fun addSelectedAnswer(answerId: Long) {
+    fun addSelectedAnswer(answerId: Long?) {
         val currentAnswers = _answers.value.orEmpty().toMutableList()
         currentAnswers.add(answerId)
         _answers.value = currentAnswers
     }
 
-    fun removeSelectedAnswer(answerId: Long) {
+    fun removeSelectedAnswer(answerId: Long?) {
         val currentAnswers = _answers.value.orEmpty().toMutableList()
         currentAnswers.remove(answerId)
         _answers.value = currentAnswers
     }
-
 }

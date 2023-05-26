@@ -1,26 +1,50 @@
 package hr.algebra.surfsafely.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import hr.algebra.surfsafely.R
+import hr.algebra.surfsafely.adapter.QuizRecycleAdapter
 import hr.algebra.surfsafely.databinding.FragmentQuizBinding
 import hr.algebra.surfsafely.framework.replaceFragment
+import hr.algebra.surfsafely.service.ApiService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.inject
 
 class QuizFragment : Fragment() {
 
     private lateinit var binding: FragmentQuizBinding
+    private val apiService by inject<ApiService>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentQuizBinding.inflate(inflater, container, false)
-        binding.testigraj.setOnClickListener {
-            this.requireActivity().replaceFragment(R.id.main_fragment_container, PlayQuizFragment(), false)
+
+        lifecycleScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) { apiService.getAllQuizzes().execute() }
+                if (response.isSuccessful) {
+                    val quizList = response.body()?.data
+                    withContext(Dispatchers.Main) {
+                        val adapter = QuizRecycleAdapter(quizList ?: emptyList()) {
+                            this@QuizFragment.requireActivity().replaceFragment(R.id.main_fragment_container, PlayQuizFragment(it), false)
+                        }
+                        binding.quizRecyclerView.adapter = adapter
+                    }
+                } else {
+                    // Handle error case
+                }
+            } catch (e: Exception) {
+                // Handle exception
+            }
         }
+
         return binding.root
     }
 }

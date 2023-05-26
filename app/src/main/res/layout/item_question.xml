@@ -12,7 +12,6 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/white"
         android:padding="8dp"
-        android:text="Test"
         android:gravity="center"
         android:textSize="@dimen/text_big"
         app:layout_constraintTop_toTopOf="parent"

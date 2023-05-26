@@ -4,5 +4,5 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class SolveAttemptDto(
-    val answerIds: List<Long>
+    val answerIds: List<Long?>
 )

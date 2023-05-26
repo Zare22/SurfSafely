@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.ActivityMainBinding
-import hr.algebra.surfsafely.databinding.FragmentProfileBinding
 import hr.algebra.surfsafely.framework.startActivityAndClearStack
 import hr.algebra.surfsafely.manager.TokenManager
-import hr.algebra.surfsafely.viewmodel.QuizViewModel
 import hr.algebra.surfsafely.viewmodel.UserViewModel
 import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val userViewModel by viewModel<UserViewModel>()
-    private val quizViewModel by viewModel<QuizViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         initActionBar()
         initUser()
         initNavigation()
-        quizViewModel.getQuiz()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
