@@ -26,10 +26,14 @@ class AuthenticationUserViewModel(private val apiService: ApiService, private va
                 email.get()!!
             )
             try {
-                apiService.registerUser(userDto).execute()
-                Result.success(Unit)
+                val response = apiService.registerUser(userDto).execute()
+                if(response.isSuccessful) {
+                    Result.success(Unit)
+                }
+                else
+                    Result.failure(Exception("Registration failed!"))
             } catch (e: Exception) {
-                Result.failure(e)
+                Result.failure(Exception("Unexpected error!"))
             }
         }
     }
@@ -44,7 +48,7 @@ class AuthenticationUserViewModel(private val apiService: ApiService, private va
                     if (token != null) tokenViewModel.updateToken(token)
                     Result.success(Unit)
                 } else
-                    Result.failure(Exception("Failed to log you in again!"))
+                    Result.failure(Exception("Failed to log you in!"))
             } catch (e: Exception) {
                 Result.failure(Exception("Unexpected error"))
             }

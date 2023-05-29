@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.auth0.jwt.JWT
+import hr.algebra.surfsafely.R
 import java.util.Date
 
 inline fun <reified T : Activity> Context.startActivityAndClearStack() {
@@ -28,6 +29,12 @@ fun Activity.showToast(message: String) {
 
 fun FragmentActivity.replaceFragment(containerId: Int, fragment: Fragment, addToBackStack: Boolean) {
     supportFragmentManager.beginTransaction()
+        .setCustomAnimations(
+            R.anim.fade_in,
+            R.anim.fade_out,
+            R.anim.fade_in,
+            R.anim.fade_out
+        )
         .replace(containerId, fragment)
         .apply {
             if (addToBackStack) addToBackStack(null)

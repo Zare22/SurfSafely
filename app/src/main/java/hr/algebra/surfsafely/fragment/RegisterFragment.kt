@@ -45,7 +45,7 @@ class RegisterFragment : Fragment() {
                         activity?.showToast(getString(R.string.you_have_registered_successfully))
                         activity?.replaceFragment(R.id.authentication_fragment_container, LoginFragment(),false)
                     }.onFailure {
-                        activity?.showToast(getString(R.string.registration_error))
+                        activity?.showToast(it.message.toString())
                     }
                 }
             } else activity?.showToast(getString(R.string.please_fill_out_your_form))

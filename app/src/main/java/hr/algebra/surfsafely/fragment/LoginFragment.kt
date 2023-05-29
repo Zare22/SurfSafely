@@ -51,9 +51,10 @@ class LoginFragment : Fragment() {
             if (!inputs.any { it.text.isNullOrBlank() }) {
                 loginUserViewModel.viewModelScope.launch {
                     loginUserViewModel.loginUser().onSuccess {
+                        activity?.showToast(getString(R.string.you_have_logged_in_successfully))
                         (activity as AppCompatActivity).applicationContext.startActivityAndClearStack<MainActivity>()
                     }.onFailure {
-                        activity?.showToast("Something went wrong with logging in")
+                        activity?.showToast(it.message.toString())
                     }
                 }
             }

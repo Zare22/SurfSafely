@@ -3,6 +3,7 @@ package hr.algebra.surfsafely.application
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import androidx.fragment.app.FragmentTransaction
 import hr.algebra.surfsafely.module.quizModule
 import hr.algebra.surfsafely.module.serviceModule
 import hr.algebra.surfsafely.module.tokenModule

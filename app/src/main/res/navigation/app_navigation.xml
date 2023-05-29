@@ -9,7 +9,8 @@
         android:id="@+id/navigation_home"
         android:name="hr.algebra.surfsafely.fragment.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_scan"

@@ -53,12 +53,12 @@
     <string name="create_your_quiz">Create your quiz</string>
     <string name="please_fill_out_your_form">Please fill out your form</string>
     <string name="you_have_registered_successfully">You have registered successfully</string>
-    <string name="registration_error">Ooops! Something went wrong with registration!</string>
     <string name="for_safety_reasons_we_require_you_to_log_in_again_with_your_password">For safety reasons we require you to log in again with your password!</string>
     <string name="you_have_changed_your_password_successfully">You have changed your password successfully!</string>
     <string name="you_have_updated_your_information_successfully">You have updated your information successfully!</string>
     <string name="you_have_successfully_delete_your_account">You have successfully delete your account!</string>
     <string name="you_have_created_your_quiz_successfully">You have created your quiz successfully!</string>
+    <string name="you_have_logged_in_successfully">You have logged in successfully</string>
 
 
 </resources>

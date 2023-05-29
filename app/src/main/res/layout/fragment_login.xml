@@ -47,7 +47,7 @@
                 android:autofillHints="username"
                 android:inputType="text"
                 android:padding="@dimen/padding_medium"
-                android:text="@={loginUserViewModel.username}"/>
+                android:text="@={loginUserViewModel.username}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +72,7 @@
                 android:autofillHints="password"
                 android:inputType="textPassword"
                 android:padding="@dimen/padding_medium"
-                android:text="@={loginUserViewModel.password}"/>
+                android:text="@={loginUserViewModel.password}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
