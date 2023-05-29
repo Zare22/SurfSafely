@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.FragmentChangePasswordDialogBinding
 import hr.algebra.surfsafely.dto.password.ChangePasswordRequest
+import hr.algebra.surfsafely.framework.showToast
 import hr.algebra.surfsafely.service.ApiService
 import hr.algebra.surfsafely.viewmodel.UserViewModel
 import kotlinx.coroutines.Dispatchers
@@ -38,8 +40,14 @@ class ChangePasswordDialog : DialogFragment() {
                     binding.oldPasswordInput.text.toString(),
                     binding.newPasswordInput.text.toString()
                 )
-                userViewModel.changePassword(changePasswordRequest)
-                dismiss()
+                userViewModel.viewModelScope.launch {
+                    userViewModel.changePassword(changePasswordRequest).onSuccess {
+                        activity?.showToast(getString(R.string.you_have_changed_your_password_successfully))
+                        dismiss()
+                    }.onFailure {
+                        activity?.showToast(it.message.toString())
+                    }
+                }
             }
         }
         binding.btnCancel.setOnClickListener {

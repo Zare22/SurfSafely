@@ -1,28 +1,30 @@
 package hr.algebra.surfsafely.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.dto.quiz.QuestionDto
 import hr.algebra.surfsafely.dto.quiz.QuizDto
 import hr.algebra.surfsafely.service.ApiService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CreateQuizViewModel(private val apiService: ApiService) : ViewModel() {
 
-
     private val _questions = MutableLiveData<List<QuestionDto>>(emptyList())
     private val questions: LiveData<List<QuestionDto>> = _questions
 
-    fun createQuiz(title: String, description: String, author: String) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val newQuiz = QuizDto(null, title, description, author, questions.value!!)
+    suspend fun createQuiz(title: String, description: String, author: String): Result<Unit> {
+        return withContext(Dispatchers.IO) {
+            val newQuiz = QuizDto(null, title, description, author, questions.value!!)
+            try {
                 val response = apiService.createQuiz(newQuiz).execute()
+                if (response.isSuccessful) {
+                    Result.success(Unit)
+                } else
+                    Result.failure(Exception("Quiz couldn't be created!"))
+            } catch (e: Exception) {
+                Result.failure(Exception("Unexpected error"))
             }
         }
     }

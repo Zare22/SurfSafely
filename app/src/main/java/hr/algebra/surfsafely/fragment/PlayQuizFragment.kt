@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.adapter.QuestionPagerAdapter
 import hr.algebra.surfsafely.databinding.FragmentPlayQuizBinding
 import hr.algebra.surfsafely.interfaces.AnswerSelectionListener
 import hr.algebra.surfsafely.viewmodel.PlayQuizViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayQuizFragment(private val quizId: Long) : Fragment(), AnswerSelectionListener {
@@ -21,8 +23,7 @@ class PlayQuizFragment(private val quizId: Long) : Fragment(), AnswerSelectionLi
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPlayQuizBinding.inflate(inflater, container, false)
-
-        playQuizViewModel.getQuiz(quizId)
+        playQuizViewModel.viewModelScope.launch { playQuizViewModel.getQuiz(quizId) }
 
         return binding.root
     }

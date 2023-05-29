@@ -1,6 +1,5 @@
 package hr.algebra.surfsafely.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,22 +19,33 @@ class PlayQuizViewModel(private val apiService: ApiService) : ViewModel() {
     private val _answers = MutableLiveData<List<Long?>>(emptyList())
     private val answers: LiveData<List<Long?>> = _answers
 
-    fun getQuiz(id: Long) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val response = apiService.getQuiz(id).execute()
-                _quiz.postValue(response.body()?.data!!)
+    suspend fun getQuiz(id: Long) : Result<Unit> {
+            return withContext(Dispatchers.IO) {
+                try {
+                    val response = apiService.getQuiz(id).execute()
+                    if (response.isSuccessful) {
+                        _quiz.postValue(response.body()?.data!!)
+                        Result.success(Unit)
+                    } else
+                        Result.failure(Exception("Couldn't fetch your quiz!"))
+                } catch (e: Exception) {
+                    Result.failure(Exception("Unexpected error!"))
+                }
             }
-        }
     }
 
-    fun solveQuiz() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val response = apiService.solveQuiz(SolveAttemptDto(answers.value!!)).execute()
-                Log.d("Rješenje", response.body()?.data?.correctnessPercentage.toString())
+    suspend fun solveQuiz() : Result<Unit> {
+            return withContext(Dispatchers.IO) {
+                try {
+                    val response = apiService.solveQuiz(SolveAttemptDto(answers.value!!)).execute()
+                    if (response.isSuccessful) {
+                        Result.success(Unit)
+                    } else
+                        Result.failure(Exception("Error with solving your quiz"))
+                } catch (e: Exception) {
+                    Result.failure(Exception("Unexpected error"))
+                }
             }
-        }
     }
 
     fun addSelectedAnswer(answerId: Long?) {

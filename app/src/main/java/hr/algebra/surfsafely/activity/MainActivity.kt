@@ -4,19 +4,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.ActivityMainBinding
+import hr.algebra.surfsafely.framework.showToast
 import hr.algebra.surfsafely.framework.startActivityAndClearStack
 import hr.algebra.surfsafely.manager.TokenManager
+import hr.algebra.surfsafely.viewmodel.TokenViewModel
 import hr.algebra.surfsafely.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val tokenViewModel by viewModel<TokenViewModel>()
     private val userViewModel by viewModel<UserViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +41,13 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_logout -> {
-                userViewModel.logout()
-                runBlocking {  TokenManager.clearToken(this@MainActivity) }
+                userViewModel.viewModelScope.launch {
+                    userViewModel.logout().onSuccess {
+                        this@MainActivity.showToast("You have successfully logged out!")
+                    }.onFailure {
+                        this@MainActivity.showToast(it.message.toString())
+                    }
+                }
                 this.startActivityAndClearStack<AuthenticationActivity>()
                 true
             }
@@ -47,7 +57,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initActionBar() { setSupportActionBar(binding.toolbar) }
 
-    private fun initUser() { userViewModel.getUser() }
+    private fun initUser() {
+        userViewModel.viewModelScope.launch {
+            userViewModel.getUser().onSuccess {}
+                .onFailure {
+                    this@MainActivity.showToast(it.message.toString())
+                }
+        }
+    }
 
     private fun initNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container) as NavHostFragment

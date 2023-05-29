@@ -1,105 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.LoginFragment">
+<layout>
 
-    <ImageView
-        android:id="@+id/logo_image"
-        android:layout_width="@dimen/width_150dp"
-        android:layout_height="@dimen/height_150dp"
-        android:layout_marginTop="@dimen/margin_big"
-        android:contentDescription="@string/logo_content_description"
-        android:src="@drawable/surfsafelylogo"
-        app:layout_constraintBottom_toTopOf="@id/username_input_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+    <data>
+        <variable
+            name="loginUserViewModel"
+            type="hr.algebra.surfsafely.viewmodel.AuthenticationUserViewModel" />
+    </data>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username_input_layout"
-        style="@style/SurfSafelyEditTextStyle"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        android:hint="@string/username_hint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo_image"
-        app:layout_constraintWidth_percent="0.8">
+        android:layout_height="match_parent"
+        tools:context=".fragment.LoginFragment">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username_input"
-            style="@style/EditTextColor"
+        <ImageView
+            android:id="@+id/logo_image"
+            android:layout_width="@dimen/width_150dp"
+            android:layout_height="@dimen/height_150dp"
+            android:layout_marginTop="@dimen/margin_big"
+            android:contentDescription="@string/logo_content_description"
+            android:src="@drawable/surfsafelylogo"
+            app:layout_constraintBottom_toTopOf="@id/username_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username_input_layout"
+            style="@style/SurfSafelyEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="email"
-            android:inputType="textEmailAddress"
-            android:padding="@dimen/padding_medium" />
+            android:layout_marginTop="@dimen/margin_big"
+            android:hint="@string/username_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logo_image"
+            app:layout_constraintWidth_percent="0.8">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username_input"
+                style="@style/EditTextColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:inputType="text"
+                android:padding="@dimen/padding_medium"
+                android:text="@={loginUserViewModel.username}"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_input_layout"
-        style="@style/SurfSafelyEditTextStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        android:hint="@string/password"
-        app:hintTextColor="@color/yellow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username_input_layout"
-        app:layout_constraintWidth_percent="0.8">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_input"
-            style="@style/EditTextColor"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_input_layout"
+            style="@style/SurfSafelyEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="password"
-            android:inputType="textPassword"
-            android:padding="@dimen/padding_medium" />
+            android:layout_marginTop="@dimen/margin_big"
+            android:hint="@string/password"
+            app:hintTextColor="@color/yellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/username_input_layout"
+            app:layout_constraintWidth_percent="0.8">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_input"
+                style="@style/EditTextColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:inputType="textPassword"
+                android:padding="@dimen/padding_medium"
+                android:text="@={loginUserViewModel.password}"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/login"
-        android:transitionName="@string/transition_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_input_layout"
-        app:layout_constraintWidth_percent="0.8" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCreateAccount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_big"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/create_account"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        app:layout_constraintWidth_percent="0.8" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/login"
+            android:transitionName="@string/transition_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password_input_layout"
+            app:layout_constraintWidth_percent="0.8" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/create_account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin"
+            app:layout_constraintWidth_percent="0.8" />
 
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/login_loading_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnCreateAccount" />
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/login_loading_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnCreateAccount" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

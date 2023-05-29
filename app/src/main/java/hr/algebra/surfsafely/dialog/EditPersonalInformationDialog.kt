@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.FragmentEditPersonalInformationDialogBinding
 import hr.algebra.surfsafely.dto.user.UserUpdateInformationDto
+import hr.algebra.surfsafely.framework.showToast
 import hr.algebra.surfsafely.service.ApiService
 import hr.algebra.surfsafely.viewmodel.UserViewModel
 import kotlinx.coroutines.Dispatchers
@@ -40,8 +42,14 @@ class EditPersonalInformationDialog : DialogFragment() {
                 binding.firstNameInput.text.toString(),
                 binding.lastNameInput.text.toString()
             )
-            userViewModel.updateUserInformation(userUpdateInformationDto)
-            dismiss()
+            userViewModel.viewModelScope.launch {
+                userViewModel.updateUserInformation(userUpdateInformationDto).onSuccess {
+                    activity?.showToast(getString(R.string.you_have_updated_your_information_successfully))
+                    dismiss()
+                }.onFailure {
+                    activity?.showToast(it.message.toString())
+                }
+            }
         }
         binding.btnCancel.setOnClickListener { dismiss() }
     }
