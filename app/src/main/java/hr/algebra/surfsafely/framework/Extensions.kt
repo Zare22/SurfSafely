@@ -6,6 +6,8 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.auth0.jwt.JWT
 import hr.algebra.surfsafely.R
 import java.util.Date

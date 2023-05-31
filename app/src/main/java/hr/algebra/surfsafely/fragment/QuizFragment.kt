@@ -10,6 +10,7 @@ import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.adapter.QuizRecycleAdapter
 import hr.algebra.surfsafely.databinding.FragmentQuizBinding
 import hr.algebra.surfsafely.framework.replaceFragment
+import hr.algebra.surfsafely.framework.showToast
 import hr.algebra.surfsafely.service.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,18 +34,17 @@ class QuizFragment : Fragment() {
                     val quizList = response.body()?.data
                     withContext(Dispatchers.Main) {
                         val adapter = QuizRecycleAdapter(quizList ?: emptyList()) {
-                            this@QuizFragment.requireActivity().replaceFragment(R.id.main_fragment_container, PlayQuizFragment(it), false)
+                            this@QuizFragment.requireActivity().replaceFragment(R.id.main_fragment_container, PlayQuizFragment(it), true)
                         }
                         binding.quizRecyclerView.adapter = adapter
                     }
                 } else {
-                    // Handle error case
+                    activity?.showToast("Couldn't fetch our quizzes!")
                 }
             } catch (e: Exception) {
-                // Handle exception
+                activity?.showToast("Unexpected error!")
             }
         }
-
         return binding.root
     }
 }

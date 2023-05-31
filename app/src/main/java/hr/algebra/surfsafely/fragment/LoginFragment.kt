@@ -1,10 +1,13 @@
 package hr.algebra.surfsafely.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
@@ -45,16 +48,22 @@ class LoginFragment : Fragment() {
         binding.btnCreateAccount.setOnClickListener { activity?.replaceFragment(R.id.authentication_fragment_container, RegisterFragment(), true) }
 
         binding.btnLogin.setOnClickListener {
+            val inputMethodManager =
+                context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+
+            binding.loginLoadingIndicator.visibility = View.VISIBLE
 
             val inputs = listOf(binding.usernameInput, binding.passwordInput)
-
             if (!inputs.any { it.text.isNullOrBlank() }) {
                 loginUserViewModel.viewModelScope.launch {
                     loginUserViewModel.loginUser().onSuccess {
                         activity?.showToast(getString(R.string.you_have_logged_in_successfully))
                         (activity as AppCompatActivity).applicationContext.startActivityAndClearStack<MainActivity>()
+                        binding.loginLoadingIndicator.visibility = View.GONE
                     }.onFailure {
                         activity?.showToast(it.message.toString())
+                        binding.loginLoadingIndicator.visibility = View.INVISIBLE
                     }
                 }
             }

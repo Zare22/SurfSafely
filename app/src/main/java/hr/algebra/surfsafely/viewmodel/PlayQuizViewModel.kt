@@ -34,12 +34,12 @@ class PlayQuizViewModel(private val apiService: ApiService) : ViewModel() {
             }
     }
 
-    suspend fun solveQuiz() : Result<Unit> {
+    suspend fun solveQuiz() : Result<Double> {
             return withContext(Dispatchers.IO) {
                 try {
                     val response = apiService.solveQuiz(SolveAttemptDto(answers.value!!)).execute()
                     if (response.isSuccessful) {
-                        Result.success(Unit)
+                        Result.success(response.body()?.data!!.correctnessPercentage)
                     } else
                         Result.failure(Exception("Error with solving your quiz"))
                 } catch (e: Exception) {

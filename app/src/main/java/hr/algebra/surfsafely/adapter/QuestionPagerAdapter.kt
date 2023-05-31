@@ -1,6 +1,7 @@
 package hr.algebra.surfsafely.adapter
 
 import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,13 @@ class QuestionPagerAdapter(
         val view = inflater.inflate(R.layout.item_question, container, false)
 
         val question = questions[position]
+
+        val textQuestionNumber = view.findViewById<MaterialTextView>(R.id.textQuestionNumber)
+        val totalQuestions = questions.size
+        val questionNumber = position + 1
+        val questionNumberText = context.getString(R.string.question_number_format, questionNumber, totalQuestions)
+        textQuestionNumber.text = questionNumberText
+
 
         val textQuestion = view.findViewById<MaterialTextView>(R.id.textQuestion)
         textQuestion.text = question.questionText

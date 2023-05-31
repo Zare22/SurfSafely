@@ -1,9 +1,11 @@
 package hr.algebra.surfsafely.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.R
@@ -40,12 +42,20 @@ class RegisterFragment : Fragment() {
                 binding.emailInput
             )
             if (!inputs.any { it.text.isNullOrBlank() }) {
+                val inputMethodManager =
+                    context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+
+                binding.registerLoadingIndicator.visibility = View.VISIBLE
+
                 registerUserViewModel.viewModelScope.launch {
                     registerUserViewModel.registerUser().onSuccess {
                         activity?.showToast(getString(R.string.you_have_registered_successfully))
                         activity?.replaceFragment(R.id.authentication_fragment_container, LoginFragment(),false)
+                        binding.registerLoadingIndicator.visibility = View.GONE
                     }.onFailure {
                         activity?.showToast(it.message.toString())
+                        binding.registerLoadingIndicator.visibility = View.INVISIBLE
                     }
                 }
             } else activity?.showToast(getString(R.string.please_fill_out_your_form))

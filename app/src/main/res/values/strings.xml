@@ -36,8 +36,6 @@
     <string name="edit_personal_info">Edit personal info</string>
     <string name="delete_account">Delete account</string>
     <string name="user_avatar">User avatar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Logout</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
@@ -59,6 +57,8 @@
     <string name="you_have_successfully_delete_your_account">You have successfully delete your account!</string>
     <string name="you_have_created_your_quiz_successfully">You have created your quiz successfully!</string>
     <string name="you_have_logged_in_successfully">You have logged in successfully</string>
+    <string name="question_number_format">Question %1$d/%2$d</string>
+
 
 
 </resources>

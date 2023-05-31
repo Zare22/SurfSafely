@@ -83,7 +83,6 @@
             android:layout_marginTop="@dimen/margin_big"
             android:padding="@dimen/padding_medium"
             android:text="@string/login"
-            android:transitionName="@string/transition_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/password_input_layout"
@@ -106,11 +105,14 @@
             android:id="@+id/login_loading_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:trackColor="@color/red"
+            android:visibility="invisible"
+            android:layout_marginTop="@dimen/margin_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCreateAccount" />
+            app:layout_constraintTop_toBottomOf="@id/btnCreateAccount"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

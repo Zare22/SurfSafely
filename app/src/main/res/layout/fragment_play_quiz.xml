@@ -2,45 +2,47 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/NoTitle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.PlayQuizFragment"
-    style="@style/NoTitle">
+    tools:context=".fragment.PlayQuizFragment">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerQuestions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnConfirm"
+        app:layout_constraintDimensionRatio="H,30:30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </androidx.viewpager.widget.ViewPager>
 
-    <!--    <com.google.android.material.button.MaterialButton-->
-    <!--        android:id="@+id/btnConfirm"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="@dimen/margin_big"-->
-    <!--        android:padding="@dimen/padding_medium"-->
-    <!--        android:text="@string/confirm"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintEnd_toStartOf="@id/btnConfirm" />-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_big"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/confirm"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnCancel"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerQuestions"
+        app:layout_constraintWidth_percent="0.3" />
 
-    <!--        <com.google.android.material.button.MaterialButton-->
-    <!--        android:id="@+id/btnCancel"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="@dimen/margin_big"-->
-    <!--        android:backgroundTint="@color/red"-->
-    <!--        android:padding="@dimen/padding_medium"-->
-    <!--        android:text="@string/cancel"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintEnd_toStartOf="@id/btnConfirm"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/viewPagerQuestions"-->
-    <!--        app:layout_constraintWidth_percent="0.3" />-->
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_big"
+        android:backgroundTint="@color/red"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/cancel"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/btnConfirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerQuestions"
+        app:layout_constraintWidth_percent="0.3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

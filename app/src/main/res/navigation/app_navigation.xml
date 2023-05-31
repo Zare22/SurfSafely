@@ -10,23 +10,126 @@
         android:name="hr.algebra.surfsafely.fragment.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_scan"
+            app:destination="@id/navigation_scan"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+        <action
+            android:id="@+id/action_home_to_quiz"
+            app:destination="@id/navigation_quiz"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+        <action
+            android:id="@+id/action_home_to_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_scan"
         android:name="hr.algebra.surfsafely.fragment.ScanFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_scan" />
+        tools:layout="@layout/fragment_scan" >
+
+        <action
+            android:id="@+id/action_scan_to_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+        <action
+            android:id="@+id/action_scan_to_quiz"
+            app:destination="@id/navigation_quiz"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+        <action
+            android:id="@+id/action_scan_to_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_quiz"
         android:name="hr.algebra.surfsafely.fragment.QuizFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_quiz" />
+        tools:layout="@layout/fragment_quiz" >
+
+
+        <action
+            android:id="@+id/action_quiz_to_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out"/>
+
+        <action
+            android:id="@+id/action_quiz_to_scan"
+            app:destination="@id/navigation_scan"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+        <action
+            android:id="@+id/action_quiz_to_profile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="hr.algebra.surfsafely.fragment.ProfileFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+
+        <action
+            android:id="@+id/action_profile_to_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+        <action
+            android:id="@+id/action_profile_to_scan"
+            app:destination="@id/navigation_scan"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out" />
+
+        <action
+            android:id="@+id/action_profile_to_quiz"
+            app:destination="@id/navigation_quiz"
+            app:enterAnim="@animator/slide_in"
+            app:exitAnim="@animator/slide_out"
+            app:popEnterAnim="@animator/slide_in"
+            app:popExitAnim="@animator/slide_out"/>
+
+    </fragment>
 </navigation>
