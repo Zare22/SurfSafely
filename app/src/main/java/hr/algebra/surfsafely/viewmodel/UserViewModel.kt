@@ -1,5 +1,6 @@
 package hr.algebra.surfsafely.viewmodel
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -36,7 +37,7 @@ class UserViewModel(private val apiService: ApiService, private val tokenViewMod
                     Result.failure(Exception("Failed to get user"))
                 }
             } catch (e: Exception) {
-                Result.failure(Exception("Network error!"))
+                Result.failure(Exception("Unexpected error!"))
             }
         }
     }
@@ -105,7 +106,7 @@ class UserViewModel(private val apiService: ApiService, private val tokenViewMod
 
     suspend fun loginUser(password: String): Result<Unit> {
         return withContext(Dispatchers.IO) {
-            val loginDto = LoginRequest(user.value!!.username, password)
+            val loginDto = LoginRequest(user.value?.username!!, password)
             try {
                 val response = apiService.loginUser(loginDto).execute()
                 if (response.isSuccessful) {

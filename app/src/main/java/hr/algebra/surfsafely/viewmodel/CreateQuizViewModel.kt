@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 class CreateQuizViewModel(private val apiService: ApiService) : ViewModel() {
 
     private val _questions = MutableLiveData<List<QuestionDto>>(emptyList())
-    private val questions: LiveData<List<QuestionDto>> = _questions
+    val questions: LiveData<List<QuestionDto>> = _questions
 
     suspend fun createQuiz(title: String, description: String, author: String): Result<Unit> {
         return withContext(Dispatchers.IO) {

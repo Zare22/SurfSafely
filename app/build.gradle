@@ -75,4 +75,13 @@ dependencies {
     //Ksp
     implementation 'com.google.devtools.ksp:symbol-processing-api:1.8.0-1.0.9'
 
+    //Testing
+    testImplementation 'io.mockk:mockk:1.12.5'
+    androidTestImplementation 'io.mockk:mockk-android:1.12.5'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+
 }

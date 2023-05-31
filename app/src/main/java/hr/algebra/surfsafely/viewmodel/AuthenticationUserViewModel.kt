@@ -10,20 +10,20 @@ import kotlinx.coroutines.withContext
 
 class AuthenticationUserViewModel(private val apiService: ApiService, private val tokenViewModel: TokenViewModel) : ViewModel() {
 
-    val firstName = ObservableField<String>()
-    val lastName = ObservableField<String>()
-    val username = ObservableField<String>()
-    val password = ObservableField<String>()
-    val email = ObservableField<String>()
+    val firstName = ObservableField<String?>()
+    val lastName = ObservableField<String?>()
+    val username = ObservableField<String?>()
+    val password = ObservableField<String?>()
+    val email = ObservableField<String?>()
 
     suspend fun registerUser(): Result<Unit> {
         return withContext(Dispatchers.IO) {
             val userDto = UserDto(
-                firstName.get()!!,
-                lastName.get()!!,
-                username.get()!!,
-                password.get()!!,
-                email.get()!!
+                firstName.get(),
+                lastName.get(),
+                username.get(),
+                password.get(),
+                email.get()
             )
             try {
                 val response = apiService.registerUser(userDto).execute()

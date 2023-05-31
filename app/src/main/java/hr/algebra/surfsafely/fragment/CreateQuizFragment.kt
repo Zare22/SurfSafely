@@ -40,7 +40,7 @@ class CreateQuizFragment : Fragment(), QuestionDialogListener {
                     createQuizViewModel.createQuiz(
                         binding.titleInput.text.toString(),
                         binding.descriptionInput.text.toString(),
-                        userViewModel.user.value!!.username
+                        userViewModel.user.value?.username!!
                     ).onSuccess {
                         activity?.showToast(getString(R.string.you_have_created_your_quiz_successfully))
                     }.onFailure {

@@ -13,19 +13,23 @@ import kotlinx.coroutines.withContext
 
 class PlayQuizViewModel(private val apiService: ApiService) : ViewModel() {
 
-    private val _quiz = MutableLiveData<QuizDto>()
-    val quiz: LiveData<QuizDto> = _quiz
+    private val _quiz = MutableLiveData<QuizDto?>()
+    val quiz: LiveData<QuizDto?> = _quiz
 
     private val _answers = MutableLiveData<List<Long?>>(emptyList())
-    private val answers: LiveData<List<Long?>> = _answers
+    val answers: LiveData<List<Long?>> = _answers
 
     suspend fun getQuiz(id: Long) : Result<Unit> {
             return withContext(Dispatchers.IO) {
                 try {
                     val response = apiService.getQuiz(id).execute()
                     if (response.isSuccessful) {
-                        _quiz.postValue(response.body()?.data!!)
-                        Result.success(Unit)
+                        val quizDto = response.body()?.data
+                        if(quizDto != null) {
+                            _quiz.postValue(quizDto)
+                            Result.success(Unit)
+                        } else
+                            Result.failure(Exception("Quiz not found!"))
                     } else
                         Result.failure(Exception("Couldn't fetch your quiz!"))
                 } catch (e: Exception) {
@@ -39,7 +43,11 @@ class PlayQuizViewModel(private val apiService: ApiService) : ViewModel() {
                 try {
                     val response = apiService.solveQuiz(SolveAttemptDto(answers.value!!)).execute()
                     if (response.isSuccessful) {
-                        Result.success(response.body()?.data!!.correctnessPercentage)
+                        val percentage = response.body()?.data?.correctnessPercentage
+                        if (percentage != null) {
+                            Result.success(percentage)
+                        } else
+                            Result.failure(Exception("Percentage doesn't exist"))
                     } else
                         Result.failure(Exception("Error with solving your quiz"))
                 } catch (e: Exception) {

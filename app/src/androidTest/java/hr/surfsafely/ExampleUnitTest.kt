@@ -1,4 +1,4 @@
-package hr.algebra.surfsafely
+package hr.surfsafely
 
 import org.junit.Test
 
