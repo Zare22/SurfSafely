@@ -7,25 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.activity.MainActivity
 import hr.algebra.surfsafely.databinding.FragmentLoginBinding
-import hr.algebra.surfsafely.dto.login.LoginRequest
 import hr.algebra.surfsafely.framework.replaceFragment
 import hr.algebra.surfsafely.framework.showToast
 import hr.algebra.surfsafely.framework.startActivityAndClearStack
-import hr.algebra.surfsafely.manager.TokenManager
-import hr.algebra.surfsafely.service.ApiService
 import hr.algebra.surfsafely.viewmodel.AuthenticationUserViewModel
-import hr.algebra.surfsafely.viewmodel.TokenViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -47,14 +38,14 @@ class LoginFragment : Fragment() {
     private fun initButtonClickListeners() {
         binding.btnCreateAccount.setOnClickListener { activity?.replaceFragment(R.id.authentication_fragment_container, RegisterFragment(), true) }
 
-        binding.btnLogin.setOnClickListener {
+        binding.btnLoginLoginFragment.setOnClickListener {
             val inputMethodManager =
                 context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
             binding.loginLoadingIndicator.visibility = View.VISIBLE
 
-            val inputs = listOf(binding.usernameInput, binding.passwordInput)
+            val inputs = listOf(binding.usernameInputLoginFragment, binding.passwordInputLoginFragment)
             if (!inputs.any { it.text.isNullOrBlank() }) {
                 loginUserViewModel.viewModelScope.launch {
                     loginUserViewModel.loginUser().onSuccess {
