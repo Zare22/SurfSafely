@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import hr.algebra.surfsafely.activity.AuthenticationActivity
 import hr.algebra.surfsafely.application.SurfSafelyApplication
 import hr.algebra.surfsafely.application.SurfSafelyApplication.Companion.getApplication
 import hr.algebra.surfsafely.dialog.TokenExpiredDialog
@@ -38,10 +39,12 @@ class TokenViewModel(private val tokenManager: TokenManager, private val applica
             val token = token.value
             if (token.isNullOrEmpty() || isTokenExpired(token)) {
                 val currentActivity = application.currentActivity
-                if (currentActivity is FragmentActivity) {
-                    val fragmentManager = currentActivity.supportFragmentManager
-                    val loginDialog = TokenExpiredDialog()
-                    loginDialog.show(fragmentManager, "tokenExpiredDialog")
+                if (currentActivity !is AuthenticationActivity) {
+                    if (currentActivity is FragmentActivity) {
+                        val fragmentManager = currentActivity.supportFragmentManager
+                        val loginDialog = TokenExpiredDialog()
+                        loginDialog.show(fragmentManager, "tokenExpiredDialog")
+                    }
                 }
             }
             delay(TimeUnit.MINUTES.toMillis(1))

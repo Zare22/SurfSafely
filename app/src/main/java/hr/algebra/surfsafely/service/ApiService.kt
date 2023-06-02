@@ -37,7 +37,7 @@ interface ApiService {
     @POST("checkFile")
     fun checkFile(@Part file: MultipartBody.Part): Call<ApiResponse<CheckFileResponse, String>>
 
-    @GET("logout")
+    @GET("auth/logout")
     fun logout(): Call<ApiResponse<String, String>>
 
     @POST("auth/change-password")

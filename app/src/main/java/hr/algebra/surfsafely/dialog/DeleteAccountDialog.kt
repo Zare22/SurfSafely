@@ -38,14 +38,13 @@ class DeleteAccountDialog : DialogFragment() {
             if (binding.usernameInput.text.toString() == userViewModel.user.value?.username) {
                 userViewModel.viewModelScope.launch {
                     userViewModel.delete().onSuccess {
-                        userViewModel.logout().onSuccess {
-                            activity?.showToast(getString(R.string.you_have_successfully_delete_your_account))
-                            dismiss()
-                            requireActivity().startActivityAndClearStack<AuthenticationActivity>()
-                        }
+                        activity?.showToast(getString(R.string.you_have_successfully_delete_your_account))
+                        dismiss()
+                        requireActivity().startActivityAndClearStack<AuthenticationActivity>()
                     }.onFailure {
                         activity?.showToast(it.message.toString())
                     }
+
                 }
             }
         }

@@ -93,6 +93,7 @@ class UserViewModel(private val apiService: ApiService, private val tokenViewMod
             try {
                 val response = apiService.deleteAccount().execute()
                 if (response.isSuccessful) {
+                    tokenViewModel.updateToken("")
                     Result.success(Unit)
                 } else {
                     Result.failure(Exception("Failed to delete account"))

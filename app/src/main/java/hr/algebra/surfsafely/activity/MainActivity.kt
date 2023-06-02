@@ -5,19 +5,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.ActivityMainBinding
 import hr.algebra.surfsafely.framework.showToast
 import hr.algebra.surfsafely.framework.startActivityAndClearStack
-import hr.algebra.surfsafely.manager.TokenManager
-import hr.algebra.surfsafely.viewmodel.TokenViewModel
 import hr.algebra.surfsafely.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -45,11 +40,12 @@ class MainActivity : AppCompatActivity() {
                 userViewModel.viewModelScope.launch {
                     userViewModel.logout().onSuccess {
                         this@MainActivity.showToast("You have successfully logged out!")
+                        this@MainActivity.startActivityAndClearStack<AuthenticationActivity>()
                     }.onFailure {
                         this@MainActivity.showToast(it.message.toString())
                     }
                 }
-                this.startActivityAndClearStack<AuthenticationActivity>()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
