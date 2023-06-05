@@ -11,6 +11,7 @@ import hr.algebra.surfsafely.dto.quiz.QuizDto
 import hr.algebra.surfsafely.dto.quiz.SolveAttemptDto
 import hr.algebra.surfsafely.dto.quiz.SolveAttemptResultDto
 import hr.algebra.surfsafely.dto.user.UserDto
+import hr.algebra.surfsafely.dto.user.UserImageDto
 import hr.algebra.surfsafely.dto.user.UserUpdateInformationDto
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -69,4 +70,7 @@ interface ApiService {
 
     @POST("quiz/solve")
     fun solveQuiz(@Body request: SolveAttemptDto) : Call<ApiResponse<SolveAttemptResultDto, String>>
+
+    @POST("current-user/getUserImages()")
+    fun getImages() : Call<ApiResponse<List<UserImageDto>, String>>
 }

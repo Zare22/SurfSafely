@@ -45,6 +45,9 @@ class QuizFragment : Fragment() {
                 activity?.showToast("Unexpected error!")
             }
         }
+        binding.btnCreateQuiz.setOnClickListener {
+            this.requireActivity().replaceFragment(R.id.main_fragment_container, CreateQuizFragment(), true)
+        }
         return binding.root
     }
 }

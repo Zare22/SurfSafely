@@ -58,7 +58,8 @@
     <string name="you_have_created_your_quiz_successfully">You have created your quiz successfully!</string>
     <string name="you_have_logged_in_successfully">You have logged in successfully</string>
     <string name="question_number_format">Question %1$d/%2$d</string>
-
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_your_profile_picture">Choose your profile picture</string>
 
 </resources>

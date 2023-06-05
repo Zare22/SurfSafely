@@ -96,6 +96,9 @@ dependencies {
     //Ksp
     implementation 'com.google.devtools.ksp:symbol-processing-api:1.8.0-1.0.9'
 
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     //Testing
     testImplementation 'io.mockk:mockk:1.12.5'
     androidTestImplementation 'io.mockk:mockk-android:1.12.5'
