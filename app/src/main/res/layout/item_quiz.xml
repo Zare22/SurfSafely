@@ -7,30 +7,30 @@
     android:layout_margin="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="@color/light_grey"
-    app:strokeColor="@color/yellow"
+    app:strokeColor="@color/light_blue"
     app:strokeWidth="3dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/cardview_dark_background"
         android:padding="16dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/quiz_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/yellow"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/dark_grey"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/quiz_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/quiz_title"
-            android:textSize="16sp"
-            android:textColor="@color/dark_grey"/>
+            android:textColor="@color/yellow"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

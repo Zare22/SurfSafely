@@ -49,11 +49,17 @@ class QuizFragment : Fragment() {
                 val response = withContext(Dispatchers.IO) { apiService.getAllQuizzes().execute() }
                 if (response.isSuccessful) {
                     val quizList = response.body()?.data
-                    withContext(Dispatchers.Main) {
-                        val adapter = QuizRecycleAdapter(quizList ?: emptyList()) {
-                            this@QuizFragment.requireActivity().replaceFragment(R.id.main_fragment_container, PlayQuizFragment(it), true)
+                    if (!quizList.isNullOrEmpty()) {
+                        withContext(Dispatchers.Main) {
+                            val adapter = QuizRecycleAdapter(quizList) {
+                                this@QuizFragment.requireActivity().replaceFragment(
+                                    R.id.main_fragment_container,
+                                    PlayQuizFragment(it),
+                                    true
+                                )
+                            }
+                            binding.quizRecyclerView.adapter = adapter
                         }
-                        binding.quizRecyclerView.adapter = adapter
                     }
                 } else
                     activity?.showToast("Couldn't fetch our quizzes!")

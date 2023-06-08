@@ -58,8 +58,18 @@
     <string name="you_have_created_your_quiz_successfully">You have created your quiz successfully!</string>
     <string name="you_have_logged_in_successfully">You have logged in successfully</string>
     <string name="question_number_format">Question %1$d/%2$d</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="choose_your_profile_picture">Choose your profile picture</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="buy">Buy</string>
+    <string name="all_time_score">All time score:</string>
+    <string name="your_current_points">Your current points:</string>
+    <string name="all_time_leaderboard">All time leaderboard</string>
+    <string name="your_results_will_appear_here">Your results will appear here.</string>
+    <string name="avatar_to_buy">Avatar to buy</string>
+    <string name="price_text">%s points</string>
+    <string name="marketplace">Marketplace</string>
+    <string name="welcome_to_surfsafely">Welcome to SurfSafely!</string>
+    <string name="learn_about_security_through_gamification_and_protect_yourself_online">Learn about security through gamification and protect yourself online</string>
 
 </resources>

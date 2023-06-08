@@ -11,7 +11,8 @@ import hr.algebra.surfsafely.dto.quiz.QuizDto
 import hr.algebra.surfsafely.dto.quiz.SolveAttemptDto
 import hr.algebra.surfsafely.dto.quiz.SolveAttemptResultDto
 import hr.algebra.surfsafely.dto.user.UserDto
-import hr.algebra.surfsafely.dto.user.UserImageDto
+import hr.algebra.surfsafely.dto.user.AvatarDto
+import hr.algebra.surfsafely.dto.user.UserPointsDto
 import hr.algebra.surfsafely.dto.user.UserUpdateInformationDto
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -71,6 +72,27 @@ interface ApiService {
     @POST("quiz/solve")
     fun solveQuiz(@Body request: SolveAttemptDto) : Call<ApiResponse<SolveAttemptResultDto, String>>
 
-    @POST("current-user/getUserImages()")
-    fun getImages() : Call<ApiResponse<List<UserImageDto>, String>>
+    @GET("leaderboard")
+    fun getLeaderboard() : Call<ApiResponse<List<UserPointsDto>, String>>
+
+    @GET("leaderboard/user/{id}")
+    fun getUsernameForLeaderboard(@Path("id") id: Long) : Call<ApiResponse<UserDto, String>>
+
+    @GET("avatar/currentUser")
+    fun getProfileAvatar() : Call<ApiResponse<AvatarDto, String>>
+
+    @POST("avatar/makeMain/{avatarId}")
+    fun setProfileAvatar(@Path("avatarId") id: Long) : Call<ApiResponse<String, String>>
+
+    @GET("avatar/currentUser/all")
+    fun getAllUsersAvatars() : Call<ApiResponse<List<AvatarDto>, String>>
+
+    @GET("avatar/all")
+    fun getAllAvatars() : Call<ApiResponse<List<AvatarDto>, String>>
+
+    @POST("avatar/buy/{avatarId}")
+    fun buyAvatar(@Path("avatarId") id: Long) : Call<ApiResponse<String, String>>
+
+    @GET("current-user/get-points")
+    fun getUserPoints() : Call<ApiResponse<UserPointsDto, String>>
 }

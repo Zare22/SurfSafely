@@ -1,9 +1,11 @@
 package hr.algebra.surfsafely.dialog
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textfield.TextInputEditText
@@ -13,6 +15,7 @@ import hr.algebra.surfsafely.dto.quiz.AnswerDto
 import hr.algebra.surfsafely.dto.quiz.QuestionDto
 import hr.algebra.surfsafely.interfaces.QuestionDialogListener
 
+@RequiresApi(Build.VERSION_CODES.O)
 class AddQuestionDialog(private val listener: QuestionDialogListener) : DialogFragment() {
 
     private lateinit var binding: FragmentAddQuestionDialogBinding
@@ -23,7 +26,6 @@ class AddQuestionDialog(private val listener: QuestionDialogListener) : DialogFr
     ): View {
         binding = FragmentAddQuestionDialogBinding.inflate(inflater, container, false)
         initButtonClickListeners()
-
         return binding.root
     }
 
@@ -31,7 +33,6 @@ class AddQuestionDialog(private val listener: QuestionDialogListener) : DialogFr
         binding.btnAddAnswer.setOnClickListener { addAnswerView() }
         binding.btnCancel.setOnClickListener { dismiss() }
         binding.btnConfirm.setOnClickListener {
-
             val questionDto = createQuestionDto()
             listener.onQuestionAdded(questionDto)
             dismiss()

@@ -11,9 +11,9 @@ import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.ItemImageBinding
 import hr.algebra.surfsafely.dto.quiz.QuizDto
 
-class ImageRecycleAdapter(private val images: List<Bitmap>) : RecyclerView.Adapter<ImageRecycleAdapter.ImageViewHolder>() {
+class ImageRecycleAdapter(private val images: MutableMap<Long?, Bitmap?>) : RecyclerView.Adapter<ImageRecycleAdapter.ImageViewHolder>() {
 
-    var selectedImage: Bitmap? = null
+    var selectedId: Long? = null
         private set
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -23,8 +23,9 @@ class ImageRecycleAdapter(private val images: List<Bitmap>) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val image = images[position]
-        holder.bind(image)
+        val bitmap = images.values.elementAt(position)
+        val id = images.keys.elementAt(position)
+        holder.bind(bitmap, id)
     }
 
     override fun getItemCount(): Int {
@@ -33,18 +34,18 @@ class ImageRecycleAdapter(private val images: List<Bitmap>) : RecyclerView.Adapt
 
     inner class ImageViewHolder(private val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(image: Bitmap) {
-            binding.imageView.setImageBitmap(image)
-            if (image == selectedImage) {
+        fun bind(bitmap: Bitmap?, id: Long?) {
+            binding.imageView.setImageBitmap(bitmap)
+            if (id == selectedId) {
                 binding.imageView.setBackgroundResource(R.drawable.selected_image_border)
             } else {
                 binding.imageView.setBackgroundResource(0)
             }
 
             binding.imageView.setOnClickListener {
-                val previousSelectedImage = selectedImage
-                selectedImage = image
-                notifyItemChanged(images.indexOf(previousSelectedImage))
+                val previousSelectedId = selectedId
+                selectedId = id
+                notifyItemChanged(images.keys.indexOf(previousSelectedId))
                 notifyItemChanged(adapterPosition)
             }
         }

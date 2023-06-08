@@ -1,5 +1,6 @@
 package hr.algebra.surfsafely.dialog
 
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.adapter.ImageRecycleAdapter
 import hr.algebra.surfsafely.databinding.FragmentChangeProfilePictureDialogBinding
+import hr.algebra.surfsafely.framework.showToast
 import hr.algebra.surfsafely.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -25,20 +29,28 @@ class ChangeProfilePictureDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentChangeProfilePictureDialogBinding.inflate(inflater, container, false)
-
-        val images = userViewModel.images.value
-        if (!images.isNullOrEmpty()) {
-            val adapter = ImageRecycleAdapter(images)
-            binding.imageList.adapter = adapter
-        }
+        setAdapter()
         initButtonClickListeners()
         return binding.root
     }
 
+    private fun setAdapter() {
+        userViewModel.avatars.observe(viewLifecycleOwner) { avatarList ->
+            val adapter = ImageRecycleAdapter(avatarList)
+            binding.imageList.adapter = adapter
+        }
+    }
+
     private fun initButtonClickListeners() {
         binding.btnConfirm.setOnClickListener {
-            val selectedImage = (binding.imageList.adapter as ImageRecycleAdapter).selectedImage
-            userViewModel.updateProfileImage(selectedImage!!)
+            userViewModel.viewModelScope.launch {
+                val selectedId = (binding.imageList.adapter as ImageRecycleAdapter).selectedId
+                userViewModel.updateProfileAvatar(selectedId!!).onSuccess {
+                    activity?.showToast("Changed avatar successfully!")
+                }.onFailure {
+                    activity?.showToast(it.message.toString())
+                }
+            }
             dismiss()
         }
         binding.btnCancel.setOnClickListener {

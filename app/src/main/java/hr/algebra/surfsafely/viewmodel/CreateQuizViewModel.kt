@@ -1,5 +1,7 @@
 package hr.algebra.surfsafely.viewmodel
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +11,7 @@ import hr.algebra.surfsafely.service.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+@RequiresApi(Build.VERSION_CODES.O)
 class CreateQuizViewModel(private val apiService: ApiService) : ViewModel() {
 
     private val _questions = MutableLiveData<List<QuestionDto>>(emptyList())

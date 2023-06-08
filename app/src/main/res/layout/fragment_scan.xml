@@ -23,6 +23,7 @@
             style="@style/EditTextColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:padding="@dimen/padding_medium" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -43,12 +44,12 @@
         android:id="@+id/selected_file_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Placeholder"
         android:textColor="@color/yellow"
         app:layout_constraintEnd_toStartOf="@+id/btnSelectFile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/url_input_layout"
-        app:layout_constraintBottom_toTopOf="@id/btnScanFile"/>
+        app:layout_constraintBottom_toTopOf="@id/btnScanFile"
+        android:maxLines="1"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSelectFile"
@@ -68,17 +69,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSelectFile" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/results_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your results will appear here."
-        android:layout_marginTop="16dp"
-        android:textColor="@color/yellow"
+    <androidx.cardview.widget.CardView
         app:layout_constraintTop_toBottomOf="@id/btnScanFile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/margin_big"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@color/cardview_dark_background">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/results_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/your_results_will_appear_here"
+                android:layout_margin="16dp"
+                android:textColor="@color/yellow"
+                android:textAlignment="center"
+                />
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
 
 
 

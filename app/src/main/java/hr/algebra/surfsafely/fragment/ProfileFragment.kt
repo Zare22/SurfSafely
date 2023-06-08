@@ -27,16 +27,15 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.userViewModel = userViewModel
-        userViewModel.profileImage.observe(this.viewLifecycleOwner) { image ->
-            binding.avatar.setImageBitmap(image)
-        }
+        setObservers()
         initButtonClickListeners()
-        setProfileImage()
         return binding.root
     }
 
-    private fun setProfileImage() {
-        binding.avatar.setImageBitmap(userViewModel.profileImage.value)
+    private fun setObservers() {
+        userViewModel.profileAvatar.observe(viewLifecycleOwner) { image ->
+            binding.avatar.setImageBitmap(image.bitmap)
+        }
     }
 
     private fun initButtonClickListeners() {

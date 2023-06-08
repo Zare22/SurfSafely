@@ -1,0 +1,52 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/leaderboardCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/leaderboard_card_view"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/rankLeaderboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_medium"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_blue" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/usernameLeaderboard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/padding_medium"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_blue" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/pointsLeaderboard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -19,10 +19,12 @@ import hr.algebra.surfsafely.viewmodel.AuthenticationUserViewModel
 import hr.algebra.surfsafely.viewmodel.TokenViewModel
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.unmockkAll
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType
 import okhttp3.ResponseBody
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -56,6 +58,11 @@ class RegistrationIntegrationTest {
         apiService = mockk()
         tokenViewModel = mockk()
         viewModel = AuthenticationUserViewModel(apiService, tokenViewModel)
+    }
+
+    @After
+    fun cleanup() {
+        unmockkAll()
     }
 
     @Test

@@ -2,8 +2,11 @@ package hr.algebra.surfsafely.application
 
 import android.app.Activity
 import android.app.Application
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.FragmentTransaction
+import androidx.annotation.RequiresApi
+import hr.algebra.surfsafely.module.avatarModule
+import hr.algebra.surfsafely.module.leaderboardModule
 import hr.algebra.surfsafely.module.quizModule
 import hr.algebra.surfsafely.module.serviceModule
 import hr.algebra.surfsafely.module.tokenModule
@@ -14,6 +17,7 @@ import org.koin.core.context.GlobalContext.startKoin
 class SurfSafelyApplication : Application(), Application.ActivityLifecycleCallbacks {
     var currentActivity: Activity? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
         registerActivityLifecycleCallbacks(this)
@@ -21,7 +25,7 @@ class SurfSafelyApplication : Application(), Application.ActivityLifecycleCallba
         setApplication(this)
         startKoin {
             androidContext(this@SurfSafelyApplication)
-            modules(serviceModule, userModule, quizModule, tokenModule)
+            modules(serviceModule, userModule, quizModule, tokenModule, avatarModule, leaderboardModule)
         }
     }
 

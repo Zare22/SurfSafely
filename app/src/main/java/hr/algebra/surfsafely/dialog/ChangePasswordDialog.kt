@@ -1,24 +1,23 @@
 package hr.algebra.surfsafely.dialog
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.databinding.FragmentChangePasswordDialogBinding
 import hr.algebra.surfsafely.dto.password.ChangePasswordRequest
 import hr.algebra.surfsafely.framework.showToast
-import hr.algebra.surfsafely.service.ApiService
 import hr.algebra.surfsafely.viewmodel.UserViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 class ChangePasswordDialog : DialogFragment() {
 
     private lateinit var binding: FragmentChangePasswordDialogBinding
@@ -35,7 +34,7 @@ class ChangePasswordDialog : DialogFragment() {
 
     private fun initButtonClickListeners() {
         binding.btnConfirm.setOnClickListener {
-            if (binding.newPasswordInput.text == binding.newPasswordRepeatInput.text) {
+            if (binding.newPasswordInput.text.toString() == binding.newPasswordRepeatInput.text.toString()) {
                 val changePasswordRequest = ChangePasswordRequest(
                     binding.oldPasswordInput.text.toString(),
                     binding.newPasswordInput.text.toString()
@@ -48,7 +47,8 @@ class ChangePasswordDialog : DialogFragment() {
                         activity?.showToast(it.message.toString())
                     }
                 }
-            }
+            } else
+                activity?.showToast("Your new passwords aren't the same!")
         }
         binding.btnCancel.setOnClickListener {
             dismiss()

@@ -10,14 +10,13 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.auth0.jwt.JWT
 import hr.algebra.surfsafely.R
-import hr.algebra.surfsafely.dto.user.UserImageDto
+import hr.algebra.surfsafely.dto.user.AvatarDto
+import hr.algebra.surfsafely.model.AvatarItem
+import hr.algebra.surfsafely.model.ProfileAvatar
 import java.util.Base64
 import java.util.Date
-import kotlin.reflect.jvm.internal.impl.resolve.scopes.receivers.ThisClassReceiver
 
 inline fun <reified T : Activity> Context.startActivityAndClearStack() {
     val intent = Intent(this, T::class.java).apply {
@@ -59,20 +58,36 @@ fun isTokenExpired(token: String) : Boolean {
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun List<UserImageDto>.toBitmapList() : List<Bitmap> {
-    val bitmapList = mutableListOf<Bitmap>()
+fun List<AvatarDto>.toBitmapListWithId() : MutableMap<Long?, Bitmap?> {
+    val bitmapMap = mutableMapOf<Long?, Bitmap?>()
     val decoder = Base64.getDecoder()
     this.forEach { image ->
-        val byteArray = decoder.decode(image.base64)
+        val base64 = image.photo.substringAfter(",")
+        val byteArray = decoder.decode(base64)
         val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-        bitmapList.add(bitmap)
+        bitmapMap[image.id] = bitmap
     }
-    return bitmapList
+    return bitmapMap
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun UserImageDto.toBitmap() : Bitmap {
+fun AvatarDto.toBitmapWithId() : ProfileAvatar {
     val decoder = Base64.getDecoder()
+    val base64 = photo.substringAfter(",")
     val byteArray = decoder.decode(base64)
-    return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    return ProfileAvatar(bitmap, id)
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun List<AvatarDto>.toAvatarItemListWithPrice() : List<AvatarItem> {
+    val avatars = mutableListOf<AvatarItem>()
+    val decoder = Base64.getDecoder()
+    this.forEach { image ->
+        val base64 = image.photo.substringAfter(",")
+        val byteArray = decoder.decode(base64)
+        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        avatars.add(AvatarItem(image.id, bitmap, image.price))
+    }
+    return avatars
 }

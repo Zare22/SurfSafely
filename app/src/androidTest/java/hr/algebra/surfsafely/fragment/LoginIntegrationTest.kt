@@ -15,6 +15,7 @@ import hr.algebra.surfsafely.dto.ApiResponse
 import hr.algebra.surfsafely.dto.login.LoginRequest
 import hr.algebra.surfsafely.dto.login.LoginResponse
 import hr.algebra.surfsafely.framework.showToast
+import hr.algebra.surfsafely.manager.TokenManager
 import hr.algebra.surfsafely.service.ApiService
 import hr.algebra.surfsafely.viewmodel.AuthenticationUserViewModel
 import hr.algebra.surfsafely.viewmodel.TokenViewModel
@@ -22,10 +23,12 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.unmockkAll
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType
 import okhttp3.ResponseBody
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -53,6 +56,11 @@ class LoginIntegrationTest {
         apiService = mockk()
         tokenViewModel = mockk()
         viewModel = AuthenticationUserViewModel(apiService, tokenViewModel)
+    }
+
+    @After
+    fun cleanup() {
+        unmockkAll()
     }
 
     @Test
@@ -93,13 +101,11 @@ class LoginIntegrationTest {
                 }
             }
         }
-
         assertTrue(result.isSuccess)
     }
 
     @Test
     fun testLoginFailure() {
-
         onView(withId(R.id.username_input_login_fragment)).perform(typeText("testUser"))
         onView(withId(R.id.password_input_login_fragment)).perform(
             typeText("password"),

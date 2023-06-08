@@ -1,9 +1,11 @@
 package hr.algebra.surfsafely.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -53,6 +55,10 @@ class ScanFragment : Fragment() {
     private fun setButtonListeners() {
         binding.btnScanUrl.setOnClickListener {
             lifecycleScope.launch {
+                val inputMethodManager =
+                    context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                
                 val entries = listOf(ThreatEntry(binding.urlInput.text.toString()))
                 val checkUrlRequest = CheckUrlRequest(threatEntries = entries)
                 val response = withContext(Dispatchers.IO) {
@@ -69,10 +75,17 @@ class ScanFragment : Fragment() {
         }
 
         binding.btnSelectFile.setOnClickListener {
+            val inputMethodManager =
+                context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
             selectFileContract.launch("application/*")
         }
 
         binding.btnScanFile.setOnClickListener {
+
+            val inputMethodManager =
+                context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
             val file = File(selectedFilePath!!)
             val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)

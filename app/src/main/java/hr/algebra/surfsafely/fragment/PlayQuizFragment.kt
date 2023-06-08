@@ -9,8 +9,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.algebra.surfsafely.R
 import hr.algebra.surfsafely.adapter.QuestionPagerAdapter
@@ -18,13 +16,16 @@ import hr.algebra.surfsafely.databinding.FragmentPlayQuizBinding
 import hr.algebra.surfsafely.framework.showToast
 import hr.algebra.surfsafely.interfaces.AnswerSelectionListener
 import hr.algebra.surfsafely.viewmodel.PlayQuizViewModel
+import hr.algebra.surfsafely.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayQuizFragment(private val quizId: Long) : Fragment(), AnswerSelectionListener {
 
     private lateinit var binding: FragmentPlayQuizBinding
     private val playQuizViewModel by viewModel<PlayQuizViewModel>()
+    private val userViewModel by activityViewModel<UserViewModel>()
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreateView(
@@ -40,11 +41,15 @@ class PlayQuizFragment(private val quizId: Long) : Fragment(), AnswerSelectionLi
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initButtonClickListeners() {
         binding.btnConfirm.setOnClickListener {
             playQuizViewModel.viewModelScope.launch {
                 playQuizViewModel.solveQuiz().onSuccess {
-                    activity?.showToast(it.toString())
+                    val points = it * 100
+                    val message = "You have earned $points points!"
+                    activity?.showToast(message)
+                    userViewModel.getUserPoints()
                     parentFragmentManager.popBackStack()
                 }.onFailure {
                     activity?.showToast(it.message.toString())

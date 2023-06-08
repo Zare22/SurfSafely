@@ -7,7 +7,6 @@ import hr.algebra.surfsafely.dto.user.UserDto
 import hr.algebra.surfsafely.dto.user.UserUpdateInformationDto
 import hr.algebra.surfsafely.service.ApiService
 import io.mockk.*
-import junit.framework.TestCase
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -241,6 +240,7 @@ class UserViewModelTest {
         every { apiService.deleteAccount() } returns mockk {
             every { execute() } returns response
         }
+        every { tokenViewModel.updateToken("") } just Runs
 
         // Act
         val result = viewModel.delete()
