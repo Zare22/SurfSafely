@@ -1,6 +1,8 @@
 package hr.algebra.surfsafely.fragment
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,25 +41,43 @@ class LoginFragment : Fragment() {
         binding.btnCreateAccount.setOnClickListener { activity?.replaceFragment(R.id.authentication_fragment_container, RegisterFragment(), true) }
 
         binding.btnLoginLoginFragment.setOnClickListener {
-            val inputMethodManager =
-                context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
-            binding.loginLoadingIndicator.visibility = View.VISIBLE
+            if (isInternetConnected(this.requireContext())) {
+                val inputMethodManager =
+                    context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
-            val inputs = listOf(binding.usernameInputLoginFragment, binding.passwordInputLoginFragment)
-            if (!inputs.any { it.text.isNullOrBlank() }) {
-                loginUserViewModel.viewModelScope.launch {
-                    loginUserViewModel.loginUser().onSuccess {
-                        activity?.showToast(getString(R.string.you_have_logged_in_successfully))
-                        (activity as AppCompatActivity).applicationContext.startActivityAndClearStack<MainActivity>()
-                        binding.loginLoadingIndicator.visibility = View.GONE
-                    }.onFailure {
-                        activity?.showToast(it.message.toString())
-                        binding.loginLoadingIndicator.visibility = View.INVISIBLE
+                binding.loginLoadingIndicator.visibility = View.VISIBLE
+
+                val inputs = listOf(binding.usernameInputLoginFragment, binding.passwordInputLoginFragment)
+                if (!inputs.any { it.text.isNullOrBlank() }) {
+                    loginUserViewModel.viewModelScope.launch {
+                        loginUserViewModel.loginUser().onSuccess {
+                            activity?.showToast(getString(R.string.you_have_logged_in_successfully))
+                            (activity as AppCompatActivity).applicationContext.startActivityAndClearStack<MainActivity>()
+                            binding.loginLoadingIndicator.visibility = View.GONE
+                        }.onFailure {
+                            activity?.showToast(it.message.toString())
+                            binding.loginLoadingIndicator.visibility = View.INVISIBLE
+                        }
                     }
                 }
-            }
+            } else
+                activity?.showToast("There is no internet connection!")
         }
     }
+
+    private fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val networkCapabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                ?: return false
+
+        return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+    }
+
 }

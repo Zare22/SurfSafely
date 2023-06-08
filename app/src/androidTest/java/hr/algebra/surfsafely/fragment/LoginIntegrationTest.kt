@@ -15,7 +15,6 @@ import hr.algebra.surfsafely.dto.ApiResponse
 import hr.algebra.surfsafely.dto.login.LoginRequest
 import hr.algebra.surfsafely.dto.login.LoginResponse
 import hr.algebra.surfsafely.framework.showToast
-import hr.algebra.surfsafely.manager.TokenManager
 import hr.algebra.surfsafely.service.ApiService
 import hr.algebra.surfsafely.viewmodel.AuthenticationUserViewModel
 import hr.algebra.surfsafely.viewmodel.TokenViewModel
