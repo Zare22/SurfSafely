@@ -18,10 +18,22 @@ SurfSafely is a Kotlin-based application designed to provide users ability to le
 
 Here are a few screenshots of SurfSafely's user interface:
 
-![Login](https://github.com/Zare22/SurfSafely/assets/81168288/e73e6121-c65c-47df-8867-2a875fc7bf5f)
-![Register](https://github.com/Zare22/SurfSafely/assets/81168288/5ae8bdfa-62f5-4283-a861-8adcd74bd1a8)
-![Home](https://github.com/Zare22/SurfSafely/assets/81168288/06781d55-4418-45dc-a55f-099f65429759)
-![Scan](https://github.com/Zare22/SurfSafely/assets/81168288/be8c2da9-aec1-47ab-80ad-45dd16d8aa7f)
-![Quiz](https://github.com/Zare22/SurfSafely/assets/81168288/945b95fd-4b75-4aae-a81f-56b837b37df4)
-![Profile](https://github.com/Zare22/SurfSafely/assets/81168288/f0c40d9c-3ace-4e3b-9bd9-e58dde6376a2)
-![ChangePP](https://github.com/Zare22/SurfSafely/assets/81168288/83f858df-72da-4d18-8308-a5a713ba0d30)
+<img src="https://github.com/Zare22/SurfSafely/assets/81168288/e73e6121-c65c-47df-8867-2a875fc7bf5f" alt="Login" width="250" class="app-screenshot">
+<br>
+
+<img src="https://github.com/Zare22/SurfSafely/assets/81168288/5ae8bdfa-62f5-4283-a861-8adcd74bd1a8" alt="Register" width="250" class="app-screenshot">
+<br>
+
+<img src="https://github.com/Zare22/SurfSafely/assets/81168288/06781d55-4418-45dc-a55f-099f65429759" alt="Home" width="250" class="app-screenshot">
+<br>
+
+<img src="https://github.com/Zare22/SurfSafely/assets/81168288/be8c2da9-aec1-47ab-80ad-45dd16d8aa7f" alt="Scan" width="250" class="app-screenshot">
+<br>
+
+<img src="https://github.com/Zare22/SurfSafely/assets/81168288/945b95fd-4b75-4aae-a81f-56b837b37df4" alt="Quiz" width="250" class="app-screenshot">
+<br>
+
+<img src="https://github.com/Zare22/SurfSafely/assets/81168288/f0c40d9c-3ace-4e3b-9bd9-e58dde6376a2" alt="Profile" width="250" class="app-screenshot">
+<br>
+
+<img src="https://github.com/Zare22/SurfSafely/assets/81168288/83f858df-72da-4d18-8308-a5a713ba0d30" alt="ChangePP" width="250" class="app-screenshot">
